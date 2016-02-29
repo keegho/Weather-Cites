@@ -1,0 +1,27 @@
+/* Kilo fe El sa3a */
+" Km/h" = " Km/o";
+
+/* meel fee el sa3a */
+" mph" = " mpo";
+
+/* north north west */
+"NNW" = "NNO";
+
+/* north west */
+"NW" = "NO";
+
+/* south south west */
+"SSW" = "SSO";
+
+/* south west */
+"SW" = "SO";
+
+/* west */
+"W" = "O";
+
+/* west north west */
+"WNW" = "ONO";
+
+/* west south west */
+"WSW" = "OSO";
+

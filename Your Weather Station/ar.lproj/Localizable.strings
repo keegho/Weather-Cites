@@ -1,0 +1,63 @@
+/* Km */
+" Km" = " كم";
+
+/* Kilo fe El sa3a */
+" Km/h" = " كم\\س";
+
+/* milli Bar */
+" mBar" = " م\\ب";
+
+/* meel */
+" mi" = " ميل";
+
+/* meel fee el sa3a */
+" mph" = " ميل\\س";
+
+/* east */
+"E" = "شرق";
+
+/* east north east */
+"ENE" = "شرق ش شرق";
+
+/* east south east */
+"ESE" = "شرق ج شرق";
+
+/* north */
+"N" = "شمال";
+
+/* north east */
+"NE" = "ش شرق";
+
+/* north north east */
+"NNE" = "ش ش شرق";
+
+/* north north west */
+"NNW" = "ش ش غرب";
+
+/* north west */
+"NW" = "ش غرب";
+
+/* south */
+"S" = "ج";
+
+/* south east */
+"SE" = "ج شرق";
+
+/* south south east */
+"SSE" = "ج ج شرق";
+
+/* south south west */
+"SSW" = "ج ج غرب";
+
+/* south west */
+"SW" = "ج غرب";
+
+/* west */
+"W" = "غرب";
+
+/* west north west */
+"WNW" = "غرب ش غرب";
+
+/* west south west */
+"WSW" = "غرب ج غرب";
+

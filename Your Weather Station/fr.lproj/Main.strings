@@ -1,0 +1,12 @@
+/* Class = "UILabel"; text = "Real Feel"; ObjectID = "Qwx-cj-BaJ"; */
+"Qwx-cj-BaJ.text" = "Ressentie";
+
+/* Class = "UILabel"; text = "Welcome to Weather Station app made by Kegham K."; ObjectID = "b1X-tS-0Hh"; */
+"b1X-tS-0Hh.text" = "Beinvenue à la station du météo faite par Kégham K.";
+
+/* Class = "UISegmentedControl"; mLA-ct-K4L.segmentTitles[0] = "C°"; ObjectID = "mLA-ct-K4L"; */
+"mLA-ct-K4L.segmentTitles[0]" = "C°";
+
+/* Class = "UISegmentedControl"; mLA-ct-K4L.segmentTitles[1] = "F°"; ObjectID = "mLA-ct-K4L"; */
+"mLA-ct-K4L.segmentTitles[1]" = "F°";
+

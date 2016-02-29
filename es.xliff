@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="Your Weather Station/Base.lproj/LaunchScreen.storyboard" source-language="en" datatype="plaintext" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body/>
+  </file>
+  <file original="Your Weather Station/Base.lproj/Main.storyboard" source-language="en" datatype="plaintext" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body>
+      <trans-unit id="1ok-KZ-hjE.text">
+        <source>%</source>
+        <target>%</target>
+        <note>Class = "UILabel"; text = "%"; ObjectID = "1ok-KZ-hjE";</note>
+      </trans-unit>
+      <trans-unit id="9P9-wl-Zf4.text">
+        <source>10˚</source>
+        <target>10˚</target>
+        <note>Class = "UILabel"; text = "10˚"; ObjectID = "9P9-wl-Zf4";</note>
+      </trans-unit>
+      <trans-unit id="ChJ-fN-Dfr.text">
+        <source>mBr</source>
+        <target>mBr</target>
+        <note>Class = "UILabel"; text = "mBr"; ObjectID = "ChJ-fN-Dfr";</note>
+      </trans-unit>
+      <trans-unit id="NAE-yh-Nhs.text">
+        <source>12˚</source>
+        <target>12˚</target>
+        <note>Class = "UILabel"; text = "12˚"; ObjectID = "NAE-yh-Nhs";</note>
+      </trans-unit>
+      <trans-unit id="QMa-fc-72S.text">
+        <source>Very hot day</source>
+        <target>Very hot day</target>
+        <note>Class = "UILabel"; text = "Very hot day"; ObjectID = "QMa-fc-72S";</note>
+      </trans-unit>
+      <trans-unit id="QVh-5t-DEB.text">
+        <source>Km/h</source>
+        <target>Km/h</target>
+        <note>Class = "UILabel"; text = "Km/h"; ObjectID = "QVh-5t-DEB";</note>
+      </trans-unit>
+      <trans-unit id="Qwx-cj-BaJ.text">
+        <source>Real Feel</source>
+        <target>Sentia</target>
+        <note>Class = "UILabel"; text = "Real Feel"; ObjectID = "Qwx-cj-BaJ";</note>
+      </trans-unit>
+      <trans-unit id="T6L-s0-Abe.text">
+        <source>%</source>
+        <target>%</target>
+        <note>Class = "UILabel"; text = "%"; ObjectID = "T6L-s0-Abe";</note>
+      </trans-unit>
+      <trans-unit id="b1X-tS-0Hh.text">
+        <source>Welcome to Weather Station app made by Kegham K.</source>
+        <target>Bienvenido a la solicitud hecha por la estación meteorológica Kegham K.</target>
+        <note>Class = "UILabel"; text = "Welcome to Weather Station app made by Kegham K."; ObjectID = "b1X-tS-0Hh";</note>
+      </trans-unit>
+      <trans-unit id="bpO-tW-OCK.text">
+        <source>NNW</source>
+        <target>NNW</target>
+        <note>Class = "UILabel"; text = "NNW"; ObjectID = "bpO-tW-OCK";</note>
+      </trans-unit>
+      <trans-unit id="kwU-e3-89J.text">
+        <source>Km</source>
+        <target>Km</target>
+        <note>Class = "UILabel"; text = "Km"; ObjectID = "kwU-e3-89J";</note>
+      </trans-unit>
+      <trans-unit id="mLA-ct-K4L.segmentTitles[0]">
+        <source>C°</source>
+        <target>C°</target>
+        <note>Class = "UISegmentedControl"; mLA-ct-K4L.segmentTitles[0] = "C°"; ObjectID = "mLA-ct-K4L";</note>
+      </trans-unit>
+      <trans-unit id="mLA-ct-K4L.segmentTitles[1]">
+        <source>F°</source>
+        <target>F°</target>
+        <note>Class = "UISegmentedControl"; mLA-ct-K4L.segmentTitles[1] = "F°"; ObjectID = "mLA-ct-K4L";</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Your Weather Station/Info.plist" source-language="en" datatype="plaintext" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleName">
+        <source>$(PRODUCT_NAME)</source>
+      </trans-unit>
+      <trans-unit id="CFBundleShortVersionString">
+        <source>1.0</source>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="Your Weather Station/Localizable.strings" source-language="en" datatype="plaintext" target-language="es">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="7.2" build-num="7C68"/>
+    </header>
+    <body>
+      <trans-unit id=" Km">
+        <source> Km</source>
+        <note>Km</note>
+      </trans-unit>
+      <trans-unit id=" Km/h">
+        <source> Km/h</source>
+        <note>Kilo fe El sa3a</note>
+      </trans-unit>
+      <trans-unit id=" mBar">
+        <source> mBar</source>
+        <note>milli Bar</note>
+      </trans-unit>
+      <trans-unit id=" mi">
+        <source> mi</source>
+        <note>meel</note>
+      </trans-unit>
+      <trans-unit id=" mph">
+        <source> mph</source>
+        <note>meel fee el sa3a</note>
+      </trans-unit>
+      <trans-unit id="E">
+        <source>E</source>
+        <note>east</note>
+      </trans-unit>
+      <trans-unit id="ENE">
+        <source>ENE</source>
+        <note>east north east</note>
+      </trans-unit>
+      <trans-unit id="ESE">
+        <source>ESE</source>
+        <note>east south east</note>
+      </trans-unit>
+      <trans-unit id="N">
+        <source>N</source>
+        <note>north</note>
+      </trans-unit>
+      <trans-unit id="NE">
+        <source>NE</source>
+        <note>north east</note>
+      </trans-unit>
+      <trans-unit id="NNE">
+        <source>NNE</source>
+        <note>north north east</note>
+      </trans-unit>
+      <trans-unit id="NNW">
+        <source>NNW</source>
+        <target>NNO</target>
+        <note>north north west</note>
+      </trans-unit>
+      <trans-unit id="NW">
+        <source>NW</source>
+        <target>NO</target>
+        <note>north west</note>
+      </trans-unit>
+      <trans-unit id="S">
+        <source>S</source>
+        <note>south</note>
+      </trans-unit>
+      <trans-unit id="SE">
+        <source>SE</source>
+        <note>south east</note>
+      </trans-unit>
+      <trans-unit id="SSE">
+        <source>SSE</source>
+        <note>south south east</note>
+      </trans-unit>
+      <trans-unit id="SSW">
+        <source>SSW</source>
+        <target>SSO</target>
+        <note>south south west</note>
+      </trans-unit>
+      <trans-unit id="SW">
+        <source>SW</source>
+        <target>SO</target>
+        <note>south west</note>
+      </trans-unit>
+      <trans-unit id="W">
+        <source>W</source>
+        <target>O</target>
+        <note>west</note>
+      </trans-unit>
+      <trans-unit id="WNW">
+        <source>WNW</source>
+        <target>ONO</target>
+        <note>west north west</note>
+      </trans-unit>
+      <trans-unit id="WSW">
+        <source>WSW</source>
+        <target>OSO</target>
+        <note>west south west</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
