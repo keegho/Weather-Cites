@@ -73,6 +73,8 @@
 		193DBF531C8479340012729A /* Partly-Cloudy-Day2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF511C8479340012729A /* Partly-Cloudy-Day2x.png */; };
 		193DBF561C847ACA0012729A /* SnowBg3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF541C847ACA0012729A /* SnowBg3x.png */; };
 		193DBF571C847ACA0012729A /* SnowBg2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF551C847ACA0012729A /* SnowBg2x.png */; };
+		193DBF5A1C84CE370012729A /* ChanceOfRain3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF581C84CE370012729A /* ChanceOfRain3x.png */; };
+		193DBF5B1C84CE370012729A /* ChanceOfRain2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF591C84CE370012729A /* ChanceOfRain2x.png */; };
 		19774FF01C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19774FEF1C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift */; };
 		199CB5E51C7E9D0A006C0C0C /* wind1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E41C7E9D0A006C0C0C /* wind1.png */; };
 		199CB5E71C7EA1DD006C0C0C /* barometer1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E61C7EA1DD006C0C0C /* barometer1.png */; };
@@ -163,6 +165,8 @@
 		193DBF511C8479340012729A /* Partly-Cloudy-Day2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Partly-Cloudy-Day2x.png"; sourceTree = "<group>"; };
 		193DBF541C847ACA0012729A /* SnowBg3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SnowBg3x.png; sourceTree = "<group>"; };
 		193DBF551C847ACA0012729A /* SnowBg2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SnowBg2x.png; sourceTree = "<group>"; };
+		193DBF581C84CE370012729A /* ChanceOfRain3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChanceOfRain3x.png; sourceTree = "<group>"; };
+		193DBF591C84CE370012729A /* ChanceOfRain2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChanceOfRain2x.png; sourceTree = "<group>"; };
 		19774FE11C7B6CC000E28EE6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		19774FE21C7B6CC000E28EE6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		19774FE31C7B6CCC00E28EE6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 		193DBE791C8345BA0012729A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				193DBF581C84CE370012729A /* ChanceOfRain3x.png */,
+				193DBF591C84CE370012729A /* ChanceOfRain2x.png */,
 				193DBF541C847ACA0012729A /* SnowBg3x.png */,
 				193DBF551C847ACA0012729A /* SnowBg2x.png */,
 				193DBF501C8479340012729A /* Partly-Cloudy-Day3x.png */,
@@ -447,6 +453,7 @@
 				193DBEB61C8352550012729A /* cloud sleet.png in Resources */,
 				193DBED61C8360DD0012729A /* cloud L.Rain3x.png in Resources */,
 				193DBEE11C8364410012729A /* barometer3x.png in Resources */,
+				193DBF5B1C84CE370012729A /* ChanceOfRain2x.png in Resources */,
 				193DBEE21C8364410012729A /* visibility3x.png in Resources */,
 				193DBEA41C8349550012729A /* cloud Snow2x.png in Resources */,
 				193DBF461C8450E30012729A /* ClearDayBg3x.png in Resources */,
@@ -467,6 +474,7 @@
 				193DBF561C847ACA0012729A /* SnowBg3x.png in Resources */,
 				193DBEEB1C8365CA0012729A /* wind3xx.png in Resources */,
 				193DBED21C8360DD0012729A /* Clear Night3x.png in Resources */,
+				193DBF5A1C84CE370012729A /* ChanceOfRain3x.png in Resources */,
 				193DBEE51C8364410012729A /* barometer2x.png in Resources */,
 				193DBE9F1C8349550012729A /* cloud Night2x.png in Resources */,
 				199ED8B01C6597EA00BE8C2F /* 5C.png in Resources */,
