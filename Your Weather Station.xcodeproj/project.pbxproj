@@ -75,6 +75,7 @@
 		193DBF571C847ACA0012729A /* SnowBg2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF551C847ACA0012729A /* SnowBg2x.png */; };
 		193DBF5A1C84CE370012729A /* ChanceOfRain3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF581C84CE370012729A /* ChanceOfRain3x.png */; };
 		193DBF5B1C84CE370012729A /* ChanceOfRain2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBF591C84CE370012729A /* ChanceOfRain2x.png */; };
+		193DBF5D1C84E9D80012729A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193DBF5C1C84E9D80012729A /* SearchViewController.swift */; };
 		19774FF01C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19774FEF1C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift */; };
 		199CB5E51C7E9D0A006C0C0C /* wind1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E41C7E9D0A006C0C0C /* wind1.png */; };
 		199CB5E71C7EA1DD006C0C0C /* barometer1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E61C7EA1DD006C0C0C /* barometer1.png */; };
@@ -167,6 +168,7 @@
 		193DBF551C847ACA0012729A /* SnowBg2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SnowBg2x.png; sourceTree = "<group>"; };
 		193DBF581C84CE370012729A /* ChanceOfRain3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChanceOfRain3x.png; sourceTree = "<group>"; };
 		193DBF591C84CE370012729A /* ChanceOfRain2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChanceOfRain2x.png; sourceTree = "<group>"; };
+		193DBF5C1C84E9D80012729A /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		19774FE11C7B6CC000E28EE6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		19774FE21C7B6CC000E28EE6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		19774FE31C7B6CCC00E28EE6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				199ED89F1C655CAA00BE8C2F /* ViewController.swift */,
 				19774FEF1C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift */,
 				199ED8A11C655CAA00BE8C2F /* Main.storyboard */,
+				193DBF5C1C84E9D80012729A /* SearchViewController.swift */,
 				199ED8A61C655CAA00BE8C2F /* LaunchScreen.storyboard */,
 				199ED8A91C655CAA00BE8C2F /* Info.plist */,
 				193DBE901C83484F0012729A /* Images.xcassets */,
@@ -569,6 +572,7 @@
 			files = (
 				199ED8A01C655CAA00BE8C2F /* ViewController.swift in Sources */,
 				19774FF01C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift in Sources */,
+				193DBF5D1C84E9D80012729A /* SearchViewController.swift in Sources */,
 				199ED89E1C655CAA00BE8C2F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

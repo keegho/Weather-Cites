@@ -16,6 +16,7 @@ UICollectionViewDelegate {
 
     
 
+
     @IBOutlet var realFeelView: UIView!
     @IBOutlet var descriptionMoreLabel: UILabel!
     @IBOutlet var visibilityLabel: UILabel!
@@ -210,23 +211,25 @@ UICollectionViewDelegate {
     }
 
     
-  /*
+  
     @IBAction func refresh(sender: AnyObject) {
         
-        forcastImg.removeAll(keepCapacity: true)
         forcastTemp.removeAll(keepCapacity: true)
         forcastTempMin.removeAll(keepCapacity: true)
         forcastTempMax.removeAll(keepCapacity: true)
         forcastTime.removeAll(keepCapacity: true)
         forcastDay.removeAll(keepCapacity: true)
-        forcastIconString.removeAll(keepCapacity: true)
+        //   forcastIconString.removeAll(keepCapacity: true)
         forcastWeekDay.removeAll(keepCapacity: true)
+        forcastIconImg.removeAll(keepCapacity: true)
+        // forcastDate.removeAll(keepCapacity: true)
         
         self.messageFrame.removeFromSuperview()
-        self.getLocationWeather()
-        self.getLocationWeatherForcast()
+        self.getLocationAddress(latitude, long: longitude, key: googleKey)
+        self.getWeather(latitude, long: longitude, key: forcastioKey)
         
-    } */
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -288,6 +291,7 @@ UICollectionViewDelegate {
                 }
                 
                 self.cityLabel.text = areaLongName
+                self.navigationItem.title = areaLongName
                 //print(areaLongName)
                // print(jsonResult)
               //  self.messageFrame.removeFromSuperview()
