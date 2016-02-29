@@ -106,7 +106,7 @@ UICollectionViewDelegate {
         
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "5C.png")!)
        // forcastView.set
-        bgImage.image = UIImage(named: "SnowBg2x.png")
+        bgImage.image = UIImage(named: "clear nightBg2x.png")
        // self.bgImage.alpha = 0.9
         bgImage.sendSubviewToBack(view)
         extraItemsView.layer.cornerRadius = 12
@@ -235,6 +235,7 @@ UICollectionViewDelegate {
     
     @IBAction func segmentedControlValueChanged(sender: AnyObject) {
         
+        self.messageFrame.removeFromSuperview()
         forcastTemp.removeAll(keepCapacity: true)
         forcastTempMin.removeAll(keepCapacity: true)
         forcastTempMax.removeAll(keepCapacity: true)
