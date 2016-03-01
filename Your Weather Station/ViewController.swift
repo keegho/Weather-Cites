@@ -67,6 +67,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     //Get users preferred "chosen" language
     var preLang = NSLocale.preferredLanguages()[0]
     var searchController: UISearchController!
+    
+    var myLocation = true
 
     
     override func viewDidLoad() {
@@ -80,9 +82,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         self.searchController.dimsBackgroundDuringPresentation = true
         self.searchController.searchBar.placeholder = "Cairo EG"
         self.searchController.searchBar.hidden = true
-        
+        self.searchController.active = false
         self.navigationItem.titleView = searchController.searchBar
-       // self.navigationController!.navigationBar.topItem!.title = ""
+       // self.navigationController!.navigationBar.topItem!.title = "Nasr City"
         self.definesPresentationContext = true
         
         
@@ -120,7 +122,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "5C.png")!)
        // forcastView.set
-        bgImage.image = UIImage(named: "clear nightBg2x.png")
+      //  bgImage.image = UIImage(named: "clear nightBg2x.png")
        // self.bgImage.alpha = 0.9
         bgImage.sendSubviewToBack(view)
         extraItemsView.layer.cornerRadius = 12
@@ -178,11 +180,40 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     @IBAction func searchAction(sender: AnyObject) {
         
         self.searchController.searchBar.hidden = false
+        self.searchController.active = true
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
     }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
+        if searchBar.text != ""{
+            if let searchText = searchBar.text{
+                let editedSearchText = searchStringChecker(searchText)
+                findLongLat(editedSearchText, key: googleKey, handler: { (lat, long) -> Void in
+                 //   let latitude = round(lat / 10000000)
+               //     let longitude = round(long / 10000000)
+                 //   print(lat, long)
+                    self.forcastTemp.removeAll(keepCapacity: true)
+                    self.forcastTempMin.removeAll(keepCapacity: true)
+                    self.forcastTempMax.removeAll(keepCapacity: true)
+                    self.forcastTime.removeAll(keepCapacity: true)
+                    self.forcastDay.removeAll(keepCapacity: true)
+                    //   forcastIconString.removeAll(keepCapacity: true)
+                    self.forcastWeekDay.removeAll(keepCapacity: true)
+                    self.forcastIconImg.removeAll(keepCapacity: true)
+                    // forcastDate.removeAll(keepCapacity: true)
+                    self.getLocationAddress(lat, long: long, key: self.googleKey)
+                    self.getWeather(lat, long: long, key: self.forcastioKey)
+                })
+               // getWeather(latAndLong.lat, long: latAndLong.long, key: googleKey)
+            }
+        }
+        
+    }
+
     
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -245,7 +276,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         forcastIconImg.removeAll(keepCapacity: true)
         // forcastDate.removeAll(keepCapacity: true)
         
+        self.searchController.searchBar.hidden = true
         self.messageFrame.removeFromSuperview()
+        self.myLocation = true
         self.getLocationAddress(latitude, long: longitude, key: googleKey)
         self.getWeather(latitude, long: longitude, key: forcastioKey)
         
@@ -269,12 +302,77 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         forcastIconImg.removeAll(keepCapacity: true)
         forcastWeekDay.removeAll(keepCapacity: true)
         
+        if myLocation == true{
         getLocationAddress(latitude, long: longitude, key: googleKey)
         getWeather(latitude, long: longitude, key: forcastioKey)
+            
+        } else {
+            
+        }
     }
     
     //https://maps.googleapis.com/maps/api/geocode/json?address=alexandria,egypt&key=AIzaSyAffaG0NDNz_vbuUnMGN9fuEP1tf3BaKkY //return lat & long
     
+    func searchStringChecker(searchString: String) -> String{
+        
+        var searchStringText = searchController.searchBar.text
+        
+        if ((searchStringText?.rangeOfString(" ")) != nil) {
+            if let words = searchStringText?.componentsSeparatedByString(" "){
+                searchStringText = words[0] + "," + words[1]
+            }
+        }
+        print(searchStringText!)
+        return searchStringText!
+    }
+    
+    func findLongLat(locationSearch: String, key: String ,handler: (lat: Double, long:Double) -> Void){
+        
+        var lat = Double()
+        var long = Double()
+        
+        let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=\(locationSearch)&key=\(key)")
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+
+            guard let realResponse = response as? NSHTTPURLResponse where
+                realResponse.statusCode == 200 else {             //Has to have a min of 500 response
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.alert = UIAlertController(title: "Connection Error", message: "Connection is down. Please try again later", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                            
+                            //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                            self.alert.removeFromParentViewController()
+                            
+                        })
+                        self.alert.addAction(self.alertAction)
+                        self.presentViewController(self.alert, animated: true, completion: nil)
+                        //  self.messageFrame.removeFromSuperview()
+                    })
+                    
+                    return
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                let jsonResult = JSON(data: data!)
+                
+                lat = jsonResult["results"][0]["geometry"]["location"]["lat"].double!
+                long = jsonResult["results"][0]["geometry"]["location"]["lng"].double!
+                    
+              //  print(jsonResult)
+             //   print(jsonResult["results"][0]["geometry"]["location"])
+                print(lat,long)
+                self.myLocation = false
+                return handler(lat: lat, long: long)
+                
+            })
+          
+            
+        })
+        task.resume()
+    
+    }
+
     func getLocationAddress(lat: Double, long: Double, key: String){
         
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(long)&key=\(key)")
@@ -581,7 +679,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" Km", comment: "Km")
                         self.descriptionLabel.text = cSummary
                         self.descriptionMoreLabel.text = cDailySummary
-                      //  self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
                         
                     } else {
                         self.tempLabel.text = String(Int(round(cTemp))) + "˚"
@@ -594,11 +692,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" mi", comment: "meel")
                         self.descriptionLabel.text = cSummary
                         self.descriptionMoreLabel.text = cDailySummary
-                      //  self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
                     }
 
                  //   print(self.forcastTempMax, self.forcastTempMin)
-                 //   print(jsonContent)
+                    print(jsonContent)
 
                     self.messageFrame.removeFromSuperview()
                 })
@@ -643,7 +741,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         } else  if iconString == "cloudy"{
             bg = UIImage(named: "partly cloud night2x.png")!
         } else if iconString == "partly-cloudy-day"{
-            bg = UIImage(named: "Partly cloud dayBg2x.png")!
+            bg = UIImage(named: "Partly-Cloudy-Day2x.png")!
         } else if iconString == "partly-cloudy-night"{
             bg = UIImage(named: "partly cloud night2x.png")!
         } else if iconString == "thunderstorm"{

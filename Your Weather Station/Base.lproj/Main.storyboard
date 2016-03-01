@@ -214,13 +214,13 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CY0-oh-mSd">
                                 <rect key="frame" x="133" y="59" width="54" height="54"/>
                             </imageView>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJl-wm-ee9">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJl-wm-ee9">
                                 <rect key="frame" x="65" y="157" width="187" height="27"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="zKd-uP-HGm"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="23"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -411,7 +411,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cYq-8b-YAg">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="cog-Oq-GxJ">
+                        <barButtonItem key="leftBarButtonItem" image="locationFinder2x.png" id="cog-Oq-GxJ">
                             <color key="tintColor" red="0.97254901959999995" green="0.46706301430000002" blue="0.13471308309999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="refresh:" destination="BYZ-38-t0r" id="GQT-At-GeD"/>
@@ -421,7 +421,6 @@
                             <color key="tintColor" red="0.97254901959999995" green="0.46706301430000002" blue="0.13471308309999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="searchAction:" destination="BYZ-38-t0r" id="zXN-XL-FIb"/>
-                                <segue destination="V2u-CA-5VN" kind="show" animates="NO" id="iB6-7J-Wjf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -449,58 +448,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1057" y="194"/>
-        </scene>
-        <!--Search View Controller-->
-        <scene sceneID="3gS-LH-2hC">
-            <objects>
-                <viewController id="V2u-CA-5VN" customClass="SearchViewController" customModule="Your_Weather_Station" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lB1-FO-0Wf"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZJA-n9-miL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Vvo-8V-Qw4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6eU-vD-G6M">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="6oJ-cV-jUD">
-                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6oJ-cV-jUD" id="OEC-8s-N1f">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="V2u-CA-5VN" id="g3j-tg-BIh"/>
-                                    <outlet property="delegate" destination="V2u-CA-5VN" id="eIL-UR-HKf"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="pvE-Fa-syX" id="bHK-Dp-j6a"/>
-                        <outlet property="searchTableView" destination="6eU-vD-G6M" id="tJC-2E-IfW"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="j25-58-qgL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="pvE-Fa-syX">
-                    <connections>
-                        <outlet property="delegate" destination="V2u-CA-5VN" id="ggg-0e-alu"/>
-                        <outlet property="searchContentsController" destination="V2u-CA-5VN" id="lv3-Vy-Uja"/>
-                        <outlet property="searchResultsDataSource" destination="V2u-CA-5VN" id="lLK-ou-8ME"/>
-                        <outlet property="searchResultsDelegate" destination="V2u-CA-5VN" id="4Di-0J-Vwp"/>
-                    </connections>
-                </searchDisplayController>
-            </objects>
-            <point key="canvasLocation" x="1543" y="194"/>
+            <point key="canvasLocation" x="1084" y="194"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="65P-VC-MGI">
@@ -525,6 +473,7 @@
         <image name="Chance Of Rain" width="30" height="28"/>
         <image name="Humidity2x.png" width="36" height="44"/>
         <image name="barometer2x.png" width="36" height="40"/>
+        <image name="locationFinder2x.png" width="31" height="28"/>
         <image name="visibility2x.png" width="36" height="22"/>
         <image name="wind2xx.png" width="54" height="30"/>
         <image name="windDirection2x.png" width="38" height="34"/>
