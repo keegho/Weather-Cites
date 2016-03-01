@@ -12,6 +12,8 @@ class SearchViewController: UIViewController, UISearchControllerDelegate, UISear
     
     var searchController: UISearchController!
 
+    @IBOutlet var searchTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +29,7 @@ class SearchViewController: UIViewController, UISearchControllerDelegate, UISear
         self.navigationController!.navigationBar.topItem!.title = ""
         self.definesPresentationContext = true
         let _ = self.searchController.view
+        
 
         // Do any additional setup after loading the view.
     }
@@ -38,6 +41,22 @@ class SearchViewController: UIViewController, UISearchControllerDelegate, UISear
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let Cell:UITableViewCell! =  tableView.dequeueReusableCellWithIdentifier("cell")
+        
+        Cell.textLabel?.text = "test"
+        
+        return Cell
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {

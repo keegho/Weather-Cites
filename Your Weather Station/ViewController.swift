@@ -12,7 +12,7 @@ import Foundation
 import SwiftyJSON
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource,
-UICollectionViewDelegate {
+UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, UITextFieldDelegate {
 
     
 
@@ -66,11 +66,24 @@ UICollectionViewDelegate {
     var forcastBaseUrl = NSURL(string: "https://api.forecast.io/forecast/")!
     //Get users preferred "chosen" language
     var preLang = NSLocale.preferredLanguages()[0]
-
+    var searchController: UISearchController!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = true
+        self.searchController.searchBar.placeholder = "Cairo EG"
+        self.searchController.searchBar.hidden = true
+        
+        self.navigationItem.titleView = searchController.searchBar
+       // self.navigationController!.navigationBar.topItem!.title = ""
+        self.definesPresentationContext = true
         
         
         forcastTemp.removeAll(keepCapacity: true)
@@ -161,6 +174,14 @@ UICollectionViewDelegate {
     deinit {
         
         NSNotificationCenter.defaultCenter().removeObserver(notificationCenter)
+    }
+    @IBAction func searchAction(sender: AnyObject) {
+        
+        self.searchController.searchBar.hidden = false
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        
     }
     
     
@@ -803,6 +824,10 @@ UICollectionViewDelegate {
     
     }
     */
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return true
+    }
 
 
 }
