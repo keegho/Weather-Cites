@@ -214,8 +214,8 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CY0-oh-mSd">
                                 <rect key="frame" x="133" y="59" width="54" height="54"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJl-wm-ee9">
-                                <rect key="frame" x="65" y="157" width="187" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJl-wm-ee9">
+                                <rect key="frame" x="65" y="161" width="187" height="27"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="zKd-uP-HGm"/>
@@ -242,8 +242,8 @@
                                     <action selector="segmentedControlValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="idv-7b-ljA"/>
                                 </connections>
                             </segmentedControl>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yJp-DX-rn3">
-                                <rect key="frame" x="0.0" y="64" width="320" height="93"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yJp-DX-rn3">
+                                <rect key="frame" x="-4" y="64" width="328" height="93"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="0.5" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="93" id="Hin-zr-t36"/>
@@ -388,21 +388,21 @@
                             <constraint firstItem="RAS-o4-kf6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="24" id="DoY-XO-aKo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RAS-o4-kf6" secondAttribute="trailing" constant="28" id="Jj5-40-oty"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mLA-ct-K4L" secondAttribute="trailing" constant="-8" id="K6P-vK-sNg"/>
+                            <constraint firstItem="RAS-o4-kf6" firstAttribute="top" secondItem="UJl-wm-ee9" secondAttribute="bottom" constant="-4" id="KoS-JO-e1D"/>
                             <constraint firstItem="aBM-w3-tuZ" firstAttribute="top" secondItem="9P9-wl-Zf4" secondAttribute="bottom" constant="1" id="U7t-wr-O19"/>
                             <constraint firstItem="aBM-w3-tuZ" firstAttribute="top" secondItem="RAS-o4-kf6" secondAttribute="bottom" constant="105" id="VMe-HX-2Wf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="b1X-tS-0Hh" secondAttribute="bottom" id="X8M-9h-2iE"/>
                             <constraint firstItem="UJl-wm-ee9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-1.5" id="Yt0-B4-LfN"/>
                             <constraint firstItem="QMa-fc-72S" firstAttribute="top" secondItem="aBM-w3-tuZ" secondAttribute="bottom" constant="3" id="bCh-HQ-0xT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="UJl-wm-ee9" secondAttribute="trailing" constant="52" id="cgL-0w-AKy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UJl-wm-ee9" secondAttribute="trailing" constant="48" id="cgL-0w-AKy"/>
                             <constraint firstItem="aBM-w3-tuZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="chc-sI-zdV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yJp-DX-rn3" secondAttribute="trailing" constant="-20" id="dEh-lj-Q3H"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qZq-gW-xIO" secondAttribute="trailing" constant="-24" id="ea7-EG-33g"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qZq-gW-xIO" secondAttribute="bottom" id="fgx-pq-LPU"/>
                             <constraint firstItem="qZq-gW-xIO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="gz9-Or-CCl"/>
-                            <constraint firstItem="UJl-wm-ee9" firstAttribute="top" secondItem="yJp-DX-rn3" secondAttribute="bottom" id="hkZ-N7-tAh"/>
                             <constraint firstItem="b1X-tS-0Hh" firstAttribute="top" secondItem="mLA-ct-K4L" secondAttribute="bottom" constant="1" id="hqT-si-hPj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aBM-w3-tuZ" secondAttribute="trailing" constant="-4" id="mBA-2q-KzA"/>
-                            <constraint firstItem="UJl-wm-ee9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="49" id="o7M-ks-6ES"/>
+                            <constraint firstItem="UJl-wm-ee9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="45" id="o7M-ks-6ES"/>
                             <constraint firstItem="aBM-w3-tuZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-4" id="ozX-qV-Ev2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QMa-fc-72S" secondAttribute="trailing" constant="-4" id="sUD-wJ-DL2"/>
                             <constraint firstItem="yJp-DX-rn3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="tZE-VT-DcC"/>
@@ -473,7 +473,7 @@
         <image name="Chance Of Rain" width="30" height="28"/>
         <image name="Humidity2x.png" width="36" height="44"/>
         <image name="barometer2x.png" width="36" height="40"/>
-        <image name="locationFinder2x.png" width="31" height="28"/>
+        <image name="locationFinder2x.png" width="24" height="22"/>
         <image name="visibility2x.png" width="36" height="22"/>
         <image name="wind2xx.png" width="54" height="30"/>
         <image name="windDirection2x.png" width="38" height="34"/>

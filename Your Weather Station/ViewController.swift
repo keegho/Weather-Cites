@@ -74,18 +74,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.searchController = UISearchController(searchResultsController: nil)
-        self.searchController.searchResultsUpdater = self
-        self.searchController.delegate = self
-        self.searchController.searchBar.delegate = self
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.dimsBackgroundDuringPresentation = true
-        self.searchController.searchBar.placeholder = "Cairo EG"
-        self.searchController.searchBar.hidden = true
-        self.searchController.active = false
-        self.navigationItem.titleView = searchController.searchBar
-       // self.navigationController!.navigationBar.topItem!.title = "Nasr City"
-        self.definesPresentationContext = true
+
         
         
         forcastTemp.removeAll(keepCapacity: true)
@@ -121,7 +110,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         
         
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "5C.png")!)
-       // forcastView.set
+
       //  bgImage.image = UIImage(named: "clear nightBg2x.png")
        // self.bgImage.alpha = 0.9
         bgImage.sendSubviewToBack(view)
@@ -133,12 +122,13 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         //Mark: To notifiy that app is brought back to forground
         notificationCenter = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) { [unowned self] notification in
             
+            self.messageFrame.removeFromSuperview()
             let timeAfter = CFAbsoluteTimeGetCurrent()
             let timeElapsed = (timeAfter - self.timeBefore)/60
             //print(timeElapsed)
             
             //To check if the time passed since going to background is more than 10 min
-            if timeElapsed > 10{
+            if timeElapsed > 1{
                 
                 self.forcastTemp.removeAll(keepCapacity: true)
                 self.forcastTempMin.removeAll(keepCapacity: true)
@@ -150,7 +140,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 self.forcastIconImg.removeAll(keepCapacity: true)
              //   self.forcastDate.removeAll(keepCapacity: true)
                 
-                self.messageFrame.removeFromSuperview()
+                
                 self.manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
                 self.manager.startUpdatingLocation()    // Update the weather stats
             }
@@ -186,6 +176,27 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
     }
+    override func viewDidAppear(animated: Bool) {
+        
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController.searchResultsUpdater = self
+        self.searchController.delegate = self
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = true
+        self.searchController.searchBar.placeholder = "Cairo EG"
+        self.searchController.searchBar.hidden = true
+        self.searchController.active = false
+        self.navigationItem.titleView = searchController.searchBar
+        self.searchController.searchBar.tintColor = UIColor(red: 252/255, green: 147/255, blue: 95/255, alpha: 1)
+        // self.navigationController!.navigationBar.topItem!.title = "Nasr City"
+        self.definesPresentationContext = true
+
+
+        let nav = self.navigationController?.navigationBar
+        nav?.backgroundColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 0.2)
+        nav?.barStyle = UIBarStyle.BlackTranslucent
+    }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
@@ -193,22 +204,20 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             if let searchText = searchBar.text{
                 let editedSearchText = searchStringChecker(searchText)
                 findLongLat(editedSearchText, key: googleKey, handler: { (lat, long) -> Void in
-                 //   let latitude = round(lat / 10000000)
-               //     let longitude = round(long / 10000000)
-                 //   print(lat, long)
+
                     self.forcastTemp.removeAll(keepCapacity: true)
                     self.forcastTempMin.removeAll(keepCapacity: true)
                     self.forcastTempMax.removeAll(keepCapacity: true)
                     self.forcastTime.removeAll(keepCapacity: true)
                     self.forcastDay.removeAll(keepCapacity: true)
-                    //   forcastIconString.removeAll(keepCapacity: true)
+
                     self.forcastWeekDay.removeAll(keepCapacity: true)
                     self.forcastIconImg.removeAll(keepCapacity: true)
-                    // forcastDate.removeAll(keepCapacity: true)
+
                     self.getLocationAddress(lat, long: long, key: self.googleKey)
                     self.getWeather(lat, long: long, key: self.forcastioKey)
                 })
-               // getWeather(latAndLong.lat, long: latAndLong.long, key: googleKey)
+               
             }
         }
         
@@ -332,6 +341,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         var long = Double()
         
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=\(locationSearch)&key=\(key)")
+     dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
+      
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
 
             guard let realResponse = response as? NSHTTPURLResponse where
@@ -352,29 +363,48 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     
                     return
             }
-            dispatch_async(dispatch_get_main_queue(), {
                 
                 let jsonResult = JSON(data: data!)
                 
-                lat = jsonResult["results"][0]["geometry"]["location"]["lat"].double!
-                long = jsonResult["results"][0]["geometry"]["location"]["lng"].double!
+                guard let latOptional = jsonResult["results"][0]["geometry"]["location"]["lat"].double,
+
+                    let longOptional = jsonResult["results"][0]["geometry"]["location"]["lng"].double
+                        
+                else{
                     
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.alert = UIAlertController(title: "Location Error", message: "Location not found", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                            
+                            //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                            self.alert.removeFromParentViewController()
+                            
+                        })
+                        self.alert.addAction(self.alertAction)
+                        self.presentViewController(self.alert, animated: true, completion: nil)
+                        //  self.messageFrame.removeFromSuperview()
+                    })
+
+                    
+                            return
+                }
+                    lat = latOptional
+                    long = longOptional
               //  print(jsonResult)
              //   print(jsonResult["results"][0]["geometry"]["location"])
                 print(lat,long)
                 self.myLocation = false
                 return handler(lat: lat, long: long)
-                
-            })
           
             
         })
         task.resume()
+      }
     
     }
 
     func getLocationAddress(lat: Double, long: Double, key: String){
-        
+       dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(long)&key=\(key)")
       //  self.progressBarDisplayer("Refreshing", true)     // Progress bar show
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
@@ -398,17 +428,18 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     
             }
             
-            //Mark we have to call dispatch so we can get back to the main queue thred and update the labels
-            dispatch_async(dispatch_get_main_queue(), {
                 
                 let jsonResult = JSON(data: data!)
              guard let areaLongName = jsonResult["results"][0]["address_components"][2]["long_name"].string
                 
                 else{
-                    self.messageFrame.removeFromSuperview()
+                    dispatch_async(dispatch_get_main_queue(), {
+                     self.cityLabel.text = "Error not found"
+                    // self.messageFrame.removeFromSuperview()
+                        })
                     return
                 }
-                
+             dispatch_async(dispatch_get_main_queue(), {
                 self.cityLabel.text = areaLongName
                 self.navigationItem.title = areaLongName
                 //print(areaLongName)
@@ -419,7 +450,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         }
         task.resume()
      //   self.messageFrame.removeFromSuperview()
-    
+        }
     }
     
 
@@ -599,9 +630,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         url = NSURL(string: "\(key)/\(lat),\(long)?units=us&exclude=hourly,alerts,flags", relativeToURL: forcastBaseUrl)!
                     }
             }
-
-            
-            self.progressBarDisplayer("Refreshing", true)     // Progress bar show
+             // Progress bar show
+            dispatch_async(dispatch_get_main_queue(), {
+            self.progressBarDisplayer("Refreshing", true)
+            })
+        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
             let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
                 guard let realResponse = response as? NSHTTPURLResponse where
                     realResponse.statusCode == 200 else {             //Has to have a min of 500 response
@@ -621,13 +654,13 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         return
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                
                      let jsonContent = JSON(data: data!)
                     
                      guard  let cTemp = jsonContent["currently"]["temperature"].double,
                             let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double,
                             let cHumidity = jsonContent["currently"]["humidity"].double,
-                     //       let cDewPoint = jsonContent["currently"]["dewPoint"].double,
+                      //      let cDewPoint = jsonContent["currently"]["dewPoint"].double,
                             let cPressure = jsonContent["currently"]["pressure"].double,
                             let cVisibility = jsonContent["currently"]["visibility"].double,
                             let cWindSpeed = jsonContent["currently"]["windSpeed"].double,
@@ -638,7 +671,20 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                             let cDailySummary = jsonContent["daily"]["summary"].string
                         
                             else{
-                                self.messageFrame.removeFromSuperview()
+                              //  print("Error json data nil value found")
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    self.alert = UIAlertController(title: "Error", message: "Weather data not found", preferredStyle: UIAlertControllerStyle.Alert)
+                                    self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                        
+                                        
+                                        
+                                    })
+                                    self.alert.addAction(self.alertAction)
+                                    self.presentViewController(self.alert, animated: true, completion: nil)
+                                    self.messageFrame.removeFromSuperview()
+                                    self.refresh(self)
+                                    })
+                                
                               return
                             }
                     print(cIconString)
@@ -661,12 +707,13 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                            
                            
                         }
-                        self.forcastView.reloadData()
+                        
                       //  self.maxForcastTemp = self.forcastTempMax.maxElement()!
                     }
                     
-                    
+                dispatch_async(dispatch_get_main_queue(), {
                  //   self.messageFrame.removeFromSuperview()
+                    self.forcastView.reloadData()
                     if self.segmentedControl.selectedSegmentIndex == 0 {
                         UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
                         self.tempLabel.text = String(Int(round(cTemp))) + "˚"
@@ -696,7 +743,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     }
 
                  //   print(self.forcastTempMax, self.forcastTempMin)
-                    print(jsonContent)
+                  //  print(jsonContent)
 
                     self.messageFrame.removeFromSuperview()
                 })
@@ -704,6 +751,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             })
             task.resume()
           //  self.messageFrame.removeFromSuperview()
+      }
             
         } else{
             
@@ -723,6 +771,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     }
     
     func bgPicker(iconString: String) -> UIImage{
+        
         var bg = UIImage()
         if iconString == "clear-day"{
             bg = UIImage(named: "ClearDayBg2x.png")!
@@ -739,13 +788,14 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         } else if iconString == "fog"{
             bg = UIImage(named: "fogBg2x.png")!
         } else  if iconString == "cloudy"{
-            bg = UIImage(named: "partly cloud night2x.png")!
+            bg = UIImage(named: "Overcast_June2x.png")!
         } else if iconString == "partly-cloudy-day"{
             bg = UIImage(named: "Partly-Cloudy-Day2x.png")!
         } else if iconString == "partly-cloudy-night"{
             bg = UIImage(named: "partly cloud night2x.png")!
         } else if iconString == "thunderstorm"{
             bg = UIImage(named: "StormBg2x.png")!
+
         } else {
             bg = UIImage(named: "Partly cloud dayBg2x.png")!
         }
