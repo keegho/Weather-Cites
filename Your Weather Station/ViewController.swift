@@ -750,10 +750,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         self.descriptionLabel.text = cSummary
                         self.descriptionMoreLabel.text = cDailySummary
                         self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        
                     }
 
                  //   print(self.forcastTempMax, self.forcastTempMin)
-                  //  print(jsonContent)
+                    print(jsonContent)
 
                     if self.refreshing == true{
                         self.messageFrame.removeFromSuperview()
@@ -786,6 +787,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
 
         
     }
+
     
     func bgPicker(iconString: String) -> UIImage{
         
@@ -833,7 +835,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         } else if iconString == "sleet"{
                 icon = UIImage(named: "cloud sleet.png")!
         } else if iconString == "wind"{
-            
+            icon = UIImage(named: "windForcast2x.png")!
         } else if iconString == "fog"{
             icon = UIImage(named: "fog.png")!
         } else  if iconString == "cloudy"{
