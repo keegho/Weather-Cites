@@ -67,7 +67,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     //Get users preferred "chosen" language
     var preLang = NSLocale.preferredLanguages()[0]
     var searchController: UISearchController!
-    
+    var refreshing = false
     var myLocation = true
 
     
@@ -632,8 +632,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             }
              // Progress bar show
             dispatch_async(dispatch_get_main_queue(), {
+                if self.refreshing == false{
             self.progressBarDisplayer("Refreshing", true)
+                    self.refreshing = true
                 print("refreshing")
+                }
             })
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
             let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
@@ -650,7 +653,10 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                             })
                             self.alert.addAction(self.alertAction)
                             self.presentViewController(self.alert, animated: true, completion: nil)
+                            if self.refreshing == true{
                             self.messageFrame.removeFromSuperview()
+                                self.refreshing = false
+                            }
                         })
                         return
                 }
@@ -682,7 +688,10 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                                     })
                                     self.alert.addAction(self.alertAction)
                                     self.presentViewController(self.alert, animated: true, completion: nil)
-                                    self.messageFrame.removeFromSuperview()
+                                    if self.refreshing == true{
+                                        self.messageFrame.removeFromSuperview()
+                                        self.refreshing = false
+                                    }
                                     self.refresh(self)
                                     })
                                 
@@ -746,7 +755,10 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                  //   print(self.forcastTempMax, self.forcastTempMin)
                   //  print(jsonContent)
 
-                    self.messageFrame.removeFromSuperview()
+                    if self.refreshing == true{
+                        self.messageFrame.removeFromSuperview()
+                        self.refreshing = false
+                    }
                     print("Stop refreshing")
                 })
                // self.messageFrame.removeFromSuperview()
@@ -766,7 +778,10 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             })
             self.alert.addAction(self.alertAction)
             self.presentViewController(self.alert, animated: true, completion: nil)
-            self.messageFrame.removeFromSuperview()
+            if self.refreshing == true{
+                self.messageFrame.removeFromSuperview()
+                self.refreshing = false
+            }
         }
 
         
