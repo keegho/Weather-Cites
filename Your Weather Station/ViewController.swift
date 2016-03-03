@@ -69,6 +69,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var searchController: UISearchController!
     var refreshing = false
     var myLocation = true
+    var fromSearchEngine = false
 
     
     override func viewDidLoad() {
@@ -213,6 +214,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
 
                     self.forcastWeekDay.removeAll(keepCapacity: true)
                     self.forcastIconImg.removeAll(keepCapacity: true)
+                    self.fromSearchEngine = true
 
                     self.getLocationAddress(lat, long: long, key: self.googleKey)
                     self.getWeather(lat, long: long, key: self.forcastioKey)
@@ -288,6 +290,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         self.searchController.searchBar.hidden = true
         self.messageFrame.removeFromSuperview()
         self.myLocation = true
+        self.fromSearchEngine = false
         self.getLocationAddress(latitude, long: longitude, key: googleKey)
         self.getWeather(latitude, long: longitude, key: forcastioKey)
         
@@ -725,7 +728,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                  //   self.messageFrame.removeFromSuperview()
                     self.forcastView.reloadData()
                     if self.segmentedControl.selectedSegmentIndex == 0 {
-                        UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                        if self.fromSearchEngine == false{
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                        }
                         self.tempLabel.text = String(Int(round(cTemp))) + "˚"
                         self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
                         self.pressureLabel.text = String(Int(round(cPressure))) +  NSLocalizedString(" mBar", comment: "milli Bar")
@@ -739,6 +744,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
                         
                     } else {
+                        if self.fromSearchEngine == false{
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                        }
                         self.tempLabel.text = String(Int(round(cTemp))) + "˚"
                         self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
                         self.pressureLabel.text = String(Int(round(cPressure))) + NSLocalizedString(" mBar", comment: "milli Bar")
