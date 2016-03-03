@@ -13,6 +13,12 @@
 /* meel fee el sa3a */
 " mph" = " ميل\\س";
 
+/* Error in connection title */
+"Connection Error" = "خطأ";
+
+/* No connection found to server */
+"Connection is down. Please try again later" = "الاتصال معطلا . يرجى المحاولة مرة أخرى في وقت لاحق";
+
 /* east */
 "E" = "شرق";
 
@@ -21,6 +27,21 @@
 
 /* east south east */
 "ESE" = "شرق ج شرق";
+
+/* Error title */
+"Error" = "خطأ";
+
+/* gps error title */
+"GPS Error" = "خطأ";
+
+/* GPS location error */
+"GPS cannot locate your city. Please try again later" = "لا يمكن تحديد موقعك. بسبب عدم وجود ارسال من القمر الصناعي.";
+
+/* Error in location title */
+"Location Error" = "خطأ";
+
+/* No location found */
+"Location not found!" = "موقع غير موجود!";
 
 /* north */
 "N" = "شمال";
@@ -60,4 +81,7 @@
 
 /* west south west */
 "WSW" = "غرب ج غرب";
+
+/* if weather not found */
+"Weather data not found for this location!" = "بيانات الطقس غير موجود في هذا الموقع!";
 

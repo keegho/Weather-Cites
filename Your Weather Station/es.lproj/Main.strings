@@ -1,35 +1,8 @@
-/* Class = "UILabel"; text = "%"; ObjectID = "1ok-KZ-hjE"; */
-"1ok-KZ-hjE.text" = "%";
-
-/* Class = "UILabel"; text = "10˚"; ObjectID = "9P9-wl-Zf4"; */
-"9P9-wl-Zf4.text" = "10˚";
-
-/* Class = "UILabel"; text = "mBr"; ObjectID = "ChJ-fN-Dfr"; */
-"ChJ-fN-Dfr.text" = "mBr";
-
-/* Class = "UILabel"; text = "12˚"; ObjectID = "NAE-yh-Nhs"; */
-"NAE-yh-Nhs.text" = "12˚";
-
-/* Class = "UILabel"; text = "Very hot day"; ObjectID = "QMa-fc-72S"; */
-"QMa-fc-72S.text" = "Very hot day";
-
-/* Class = "UILabel"; text = "Km/h"; ObjectID = "QVh-5t-DEB"; */
-"QVh-5t-DEB.text" = "Km/h";
-
 /* Class = "UILabel"; text = "Real Feel"; ObjectID = "Qwx-cj-BaJ"; */
 "Qwx-cj-BaJ.text" = "Sentia";
 
-/* Class = "UILabel"; text = "%"; ObjectID = "T6L-s0-Abe"; */
-"T6L-s0-Abe.text" = "%";
-
 /* Class = "UILabel"; text = "Welcome to Weather Station app made by Kegham K."; ObjectID = "b1X-tS-0Hh"; */
 "b1X-tS-0Hh.text" = "Bienvenido a la solicitud hecha por la estación meteorológica Kegham K.";
-
-/* Class = "UILabel"; text = "NNW"; ObjectID = "bpO-tW-OCK"; */
-"bpO-tW-OCK.text" = "NNW";
-
-/* Class = "UILabel"; text = "Km"; ObjectID = "kwU-e3-89J"; */
-"kwU-e3-89J.text" = "Km";
 
 /* Class = "UISegmentedControl"; mLA-ct-K4L.segmentTitles[0] = "C°"; ObjectID = "mLA-ct-K4L"; */
 "mLA-ct-K4L.segmentTitles[0]" = "C°";

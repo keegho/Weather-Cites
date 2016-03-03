@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "iphone",
-      "filename" : "fogBg2x.png",
+      "filename" : "foggy2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "fogBg3x.png",
+      "filename" : "foggy3x.png",
       "scale" : "3x"
     }
   ],

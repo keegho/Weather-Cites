@@ -1,3 +1,24 @@
+/* Error in connection title */
+"Connection Error" = "Erreur de connexion";
+
+/* No connection found to server */
+"Connection is down. Please try again later" = "";
+
+/* Error title */
+"Error" = "Erreur";
+
+/* gps error title */
+"GPS Error" = "GPS Erreur";
+
+/* GPS location error */
+"GPS cannot locate your city. Please try again later" = "Connexion GPS introuvable. Veuillez réessayer plus tard";
+
+/* Error in location title */
+"Location Error" = "Erreur de Localisation";
+
+/* No location found */
+"Location not found!" = "Emplacement non trouvé!";
+
 /* north north west */
 "NNW" = "NNO";
 
@@ -18,4 +39,7 @@
 
 /* west south west */
 "WSW" = "OSO";
+
+/* if weather not found */
+"Weather data not found for this location!" = "Météo introuvables pour cet endroit!";
 

@@ -111,7 +111,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "5C.png")!)
 
-      //  bgImage.image = UIImage(named: "clear nightBg2x.png")
+       // bgImage.image = UIImage(named: "foggy2x.png")
        // self.bgImage.alpha = 0.9
         bgImage.sendSubviewToBack(view)
         extraItemsView.layer.cornerRadius = 12
@@ -349,7 +349,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.alert = UIAlertController(title: "Connection Error", message: "Connection is down. Please try again later", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
                         self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                             
                             //   self.alert.dismissViewControllerAnimated(true, completion: nil)
@@ -373,7 +373,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 else{
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.alert = UIAlertController(title: "Location Error", message: "Location not found", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.alert = UIAlertController(title: NSLocalizedString("Location Error", comment: "Error in location title"), message: NSLocalizedString("Location not found!", comment: "No location found") , preferredStyle: UIAlertControllerStyle.Alert)
                         self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                             
                             //   self.alert.dismissViewControllerAnimated(true, completion: nil)
@@ -413,7 +413,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                     
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.alert = UIAlertController(title: "Connection Error", message: "Connection is down. Please try again later", preferredStyle: UIAlertControllerStyle.Alert)
+                        self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
                         self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                             
                             //   self.alert.dismissViewControllerAnimated(true, completion: nil)
@@ -633,6 +633,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
              // Progress bar show
             dispatch_async(dispatch_get_main_queue(), {
             self.progressBarDisplayer("Refreshing", true)
+                print("refreshing")
             })
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
             let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
@@ -640,7 +641,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                         
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.alert = UIAlertController(title: "Connection Error", message: "Connection is down. Please try again later", preferredStyle: UIAlertControllerStyle.Alert)
+                            self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
                             self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                                 
                                 //   self.alert.dismissViewControllerAnimated(true, completion: nil)
@@ -673,7 +674,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                             else{
                               //  print("Error json data nil value found")
                                 dispatch_async(dispatch_get_main_queue(), {
-                                    self.alert = UIAlertController(title: "Error", message: "Weather data not found", preferredStyle: UIAlertControllerStyle.Alert)
+                                    self.alert = UIAlertController(title: NSLocalizedString("Error", comment: "Error title"), message: NSLocalizedString("Weather data not found for this location!", comment: "if weather not found"), preferredStyle: UIAlertControllerStyle.Alert)
                                     self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                                         
                                         
@@ -746,6 +747,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                   //  print(jsonContent)
 
                     self.messageFrame.removeFromSuperview()
+                    print("Stop refreshing")
                 })
                // self.messageFrame.removeFromSuperview()
             })
@@ -755,7 +757,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             
         } else{
             
-            self.alert = UIAlertController(title: "GPS Error", message: "GPS cannot locate your city. Please try again later", preferredStyle: UIAlertControllerStyle.Alert)
+            self.alert = UIAlertController(title:NSLocalizedString("GPS Error", comment: "gps error title"), message: NSLocalizedString("GPS cannot locate your city. Please try again later", comment: "GPS location error") , preferredStyle: UIAlertControllerStyle.Alert)
             self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 
                 //   self.alert.dismissViewControllerAnimated(true, completion: nil)
@@ -786,7 +788,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         } else if iconString == "wind"{
             bg = UIImage(named: "WindBg2x.png")!
         } else if iconString == "fog"{
-            bg = UIImage(named: "fogBg2x.png")!
+            bg = UIImage(named: "foggy2x.png")!
         } else  if iconString == "cloudy"{
             bg = UIImage(named: "Overcast_June2x.png")!
         } else if iconString == "partly-cloudy-day"{

@@ -4,6 +4,27 @@
 /* meel fee el sa3a */
 " mph" = " mpo";
 
+/* Error in connection title */
+"Connection Error" = "Errore Connessione ";
+
+/* No connection found to server */
+"Connection is down. Please try again later" = "La connessione è giù. Per favore riprova più tardi";
+
+/* Error title */
+"Error" = "Errore";
+
+/* gps error title */
+"GPS Error" = "Errore GPS";
+
+/* GPS location error */
+"GPS cannot locate your city. Please try again later" = "Connessione GPS è giù. Per favore riprova più tardi";
+
+/* Error in location title */
+"Location Error" = "Errore posizione";
+
+/* No location found */
+"Location not found!" = "Posizione non trovata!";
+
 /* north north west */
 "NNW" = "NNO";
 
@@ -24,4 +45,7 @@
 
 /* west south west */
 "WSW" = "OSO";
+
+/* if weather not found */
+"Weather data not found for this location!" = "Meteo non trovate in questa posizione!";
 
