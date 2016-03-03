@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Foundation
 import SwiftyJSON
+import GoogleMobileAds
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource,
 UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, UITextFieldDelegate {
@@ -35,6 +36,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
 
     @IBOutlet var extraItemsView: UIView!
     @IBOutlet var forcastView: UICollectionView!
+    @IBOutlet var googleBannerView: GADBannerView!
 
     
     var notificationCenter: NSObjectProtocol!
@@ -71,12 +73,17 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var myLocation = true
     var fromSearchEngine = false
 
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
+        print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
         
+        googleBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        googleBannerView.rootViewController = self
+        googleBannerView.loadRequest(GADRequest())
         
         forcastTemp.removeAll(keepCapacity: true)
         forcastTempMin.removeAll(keepCapacity: true)

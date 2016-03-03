@@ -15,6 +15,18 @@
 		1920D6491C87DE6400C3876B /* tornadoIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1920D6471C87DE6400C3876B /* tornadoIcon2x.png */; };
 		1920D64C1C87E00900C3876B /* hailicon3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1920D64A1C87E00900C3876B /* hailicon3x.png */; };
 		1920D64D1C87E00900C3876B /* hailicon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1920D64B1C87E00900C3876B /* hailicon2x.png */; };
+		1920D64F1C88929F00C3876B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D64E1C88929F00C3876B /* GoogleMobileAds.framework */; };
+		1920D6511C88931400C3876B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6501C88931400C3876B /* AudioToolbox.framework */; };
+		1920D6531C88934000C3876B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6521C88934000C3876B /* AVFoundation.framework */; };
+		1920D6551C88934B00C3876B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6541C88934B00C3876B /* CoreGraphics.framework */; };
+		1920D6571C88936F00C3876B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6561C88936F00C3876B /* CoreMedia.framework */; };
+		1920D6591C88938000C3876B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6581C88938000C3876B /* CoreTelephony.framework */; };
+		1920D65B1C88938900C3876B /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D65A1C88938900C3876B /* EventKit.framework */; };
+		1920D65D1C88939300C3876B /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D65C1C88939300C3876B /* EventKitUI.framework */; };
+		1920D65F1C88939C00C3876B /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D65E1C88939C00C3876B /* MessageUI.framework */; };
+		1920D6611C8893A600C3876B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6601C8893A600C3876B /* StoreKit.framework */; };
+		1920D6631C8893B200C3876B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6621C8893B200C3876B /* SystemConfiguration.framework */; };
+		1920D6651C88940000C3876B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1920D6641C88940000C3876B /* AdSupport.framework */; };
 		193DBE911C83484F0012729A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 193DBE901C83484F0012729A /* Images.xcassets */; };
 		193DBE9D1C8349550012729A /* cloud Thunder2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBE921C8349550012729A /* cloud Thunder2x.png */; };
 		193DBE9E1C8349550012729A /* fog2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 193DBE931C8349550012729A /* fog2x.png */; };
@@ -116,6 +128,18 @@
 		1920D6471C87DE6400C3876B /* tornadoIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tornadoIcon2x.png; sourceTree = "<group>"; };
 		1920D64A1C87E00900C3876B /* hailicon3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hailicon3x.png; sourceTree = "<group>"; };
 		1920D64B1C87E00900C3876B /* hailicon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hailicon2x.png; sourceTree = "<group>"; };
+		1920D64E1C88929F00C3876B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		1920D6501C88931400C3876B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1920D6521C88934000C3876B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1920D6541C88934B00C3876B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1920D6561C88936F00C3876B /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		1920D6581C88938000C3876B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1920D65A1C88938900C3876B /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		1920D65C1C88939300C3876B /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		1920D65E1C88939C00C3876B /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1920D6601C8893A600C3876B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1920D6621C8893B200C3876B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1920D6641C88940000C3876B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		193DBE901C83484F0012729A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		193DBE921C8349550012729A /* cloud Thunder2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud Thunder2x.png"; sourceTree = "<group>"; };
 		193DBE931C8349550012729A /* fog2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fog2x.png; sourceTree = "<group>"; };
@@ -232,6 +256,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1920D6651C88940000C3876B /* AdSupport.framework in Frameworks */,
+				1920D6631C8893B200C3876B /* SystemConfiguration.framework in Frameworks */,
+				1920D6611C8893A600C3876B /* StoreKit.framework in Frameworks */,
+				1920D65F1C88939C00C3876B /* MessageUI.framework in Frameworks */,
+				1920D65D1C88939300C3876B /* EventKitUI.framework in Frameworks */,
+				1920D65B1C88938900C3876B /* EventKit.framework in Frameworks */,
+				1920D6591C88938000C3876B /* CoreTelephony.framework in Frameworks */,
+				1920D6571C88936F00C3876B /* CoreMedia.framework in Frameworks */,
+				1920D6551C88934B00C3876B /* CoreGraphics.framework in Frameworks */,
+				1920D6531C88934000C3876B /* AVFoundation.framework in Frameworks */,
+				1920D6511C88931400C3876B /* AudioToolbox.framework in Frameworks */,
+				1920D64F1C88929F00C3876B /* GoogleMobileAds.framework in Frameworks */,
 				3DB764E65D29932A67489CB1 /* Pods_Your_Weather_Station.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +418,18 @@
 		7957C147179663E06F0FEF75 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1920D6641C88940000C3876B /* AdSupport.framework */,
+				1920D6621C8893B200C3876B /* SystemConfiguration.framework */,
+				1920D6601C8893A600C3876B /* StoreKit.framework */,
+				1920D65E1C88939C00C3876B /* MessageUI.framework */,
+				1920D65C1C88939300C3876B /* EventKitUI.framework */,
+				1920D65A1C88938900C3876B /* EventKit.framework */,
+				1920D6581C88938000C3876B /* CoreTelephony.framework */,
+				1920D6561C88936F00C3876B /* CoreMedia.framework */,
+				1920D6541C88934B00C3876B /* CoreGraphics.framework */,
+				1920D6521C88934000C3876B /* AVFoundation.framework */,
+				1920D64E1C88929F00C3876B /* GoogleMobileAds.framework */,
+				1920D6501C88931400C3876B /* AudioToolbox.framework */,
 				193DBF3E1C83C0200012729A /* iAd.framework */,
 				73D9657DC12062F7BB71FB5B /* Pods_Your_Weather_Station.framework */,
 			);
@@ -753,6 +801,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Your Weather Station/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -768,6 +820,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Your Weather Station/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
