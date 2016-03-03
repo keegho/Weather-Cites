@@ -185,7 +185,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         self.searchController.searchBar.delegate = self
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.dimsBackgroundDuringPresentation = true
-        self.searchController.searchBar.placeholder = "Cairo EG"
+        self.searchController.searchBar.placeholder = "City"
         self.searchController.searchBar.hidden = true
         self.searchController.active = false
         self.navigationItem.titleView = searchController.searchBar
@@ -394,7 +394,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     lat = latOptional
                     long = longOptional
               //  print(jsonResult)
-             //   print(jsonResult["results"][0]["geometry"]["location"])
+                print(jsonResult["results"][0]["geometry"]["location"])
                 print(lat,long)
                 self.myLocation = false
                 return handler(lat: lat, long: long)
@@ -445,8 +445,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
              dispatch_async(dispatch_get_main_queue(), {
                 self.cityLabel.text = areaLongName
                 self.navigationItem.title = areaLongName
-                //print(areaLongName)
-               // print(jsonResult)
+              //  print(areaLongName)
+             //   print(jsonResult)
               //  self.messageFrame.removeFromSuperview()
             })
         
@@ -666,13 +666,14 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 
                 
                      let jsonContent = JSON(data: data!)
+                
                     
                      guard  let cTemp = jsonContent["currently"]["temperature"].double,
                             let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double,
                             let cHumidity = jsonContent["currently"]["humidity"].double,
                       //      let cDewPoint = jsonContent["currently"]["dewPoint"].double,
                             let cPressure = jsonContent["currently"]["pressure"].double,
-                            let cVisibility = jsonContent["currently"]["visibility"].double,
+                         //   let cVisibility = jsonContent["currently"]["visibility"].double,
                             let cWindSpeed = jsonContent["currently"]["windSpeed"].double,
                             let cWindDirection = jsonContent["currently"]["windBearing"].double,
                             let cRainChance = jsonContent["currently"]["precipProbability"].double,
@@ -700,6 +701,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                                 
                               return
                             }
+                
+               
                     print(cIconString)
                     //Forecast Grabber
                     if let data = jsonContent["daily"]["data"].array{
@@ -726,6 +729,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     
                 dispatch_async(dispatch_get_main_queue(), {
                  //   self.messageFrame.removeFromSuperview()
+                    
                     self.forcastView.reloadData()
                     if self.segmentedControl.selectedSegmentIndex == 0 {
                         if self.fromSearchEngine == false{
@@ -738,7 +742,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
                         self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
                         self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
-                        self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" Km", comment: "Km")
+                        if let cVisibility = jsonContent["currently"]["visibility"].double{
+                            self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" Km", comment: "Km")
+                        } else {
+                            self.visibilityLabel.text = "n/a" + NSLocalizedString(" Km", comment: "Km")
+                        }
                         self.descriptionLabel.text = cSummary
                         self.descriptionMoreLabel.text = cDailySummary
                         self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
@@ -754,7 +762,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                         self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
                         self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
                         self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
-                        self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" mi", comment: "meel")
+                        if let cVisibility = jsonContent["currently"]["visibility"].double{
+                            self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" mi", comment: "meel")
+                        } else {
+                            self.visibilityLabel.text = "n/a" + NSLocalizedString(" mi", comment: "meel")
+                        }
                         self.descriptionLabel.text = cSummary
                         self.descriptionMoreLabel.text = cDailySummary
                         self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
@@ -762,7 +774,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     }
 
                  //   print(self.forcastTempMax, self.forcastTempMin)
-                    print(jsonContent)
+                 //   print(jsonContent)
 
                     if self.refreshing == true{
                         self.messageFrame.removeFromSuperview()
