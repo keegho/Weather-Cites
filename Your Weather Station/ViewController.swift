@@ -846,9 +846,13 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             icon = UIImage(named: "cloud Night.png")!
         } else if iconString == "thunderstorm"{
             icon = UIImage(named: "cloud Thunder.png")!
+        } else if iconString == "tornado"{
+            icon = UIImage(named: "tornadoIcon2x.png")!
+        } else if iconString == "hail"{
+            icon = UIImage(named: "hailicon2x.png")!
         } else {
             icon = UIImage(named: "cloud L.Rain.png")!
-        }
+        } 
         return icon
     }
     

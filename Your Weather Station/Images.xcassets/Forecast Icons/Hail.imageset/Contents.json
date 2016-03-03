@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "windForcast2x.png",
+      "filename" : "hailicon2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "windForcast3x.png",
+      "filename" : "hailicon3x.png",
       "scale" : "3x"
     }
   ],
