@@ -129,7 +129,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             //print(timeElapsed)
             
             //To check if the time passed since going to background is more than 10 min
-            if timeElapsed > 1{
+            if timeElapsed > 10{
                 
                 self.forcastTemp.removeAll(keepCapacity: true)
                 self.forcastTempMin.removeAll(keepCapacity: true)
