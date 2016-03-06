@@ -72,6 +72,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var refreshing = false
     var myLocation = true
     var fromSearchEngine = false
+    
+    var searchLat = Double()
+    var searchLong = Double()
 
 
     
@@ -326,7 +329,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         getWeather(latitude, long: longitude, key: forcastioKey)
             
         } else {
-            
+            getWeather(searchLat, long: searchLong, key: forcastioKey)
         }
     }
     
@@ -347,8 +350,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     
     func findLongLat(locationSearch: String, key: String ,handler: (lat: Double, long:Double) -> Void){
         
-        var lat = Double()
-        var long = Double()
+     //   var lat = Double()
+    //    var long = Double()
         
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=\(locationSearch)&key=\(key)")
      dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
@@ -398,13 +401,13 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     
                             return
                 }
-                    lat = latOptional
-                    long = longOptional
+                    self.searchLat = latOptional
+                    self.searchLong = longOptional
               //  print(jsonResult)
-                print(jsonResult["results"][0]["geometry"]["location"])
-                print(lat,long)
+              //  print(jsonResult["results"][0]["geometry"]["location"])
+               // print(lat,long)
                 self.myLocation = false
-                return handler(lat: lat, long: long)
+                return handler(lat: self.searchLat, long: self.searchLong)
           
             
         })
@@ -440,8 +443,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             
                 
                 let jsonResult = JSON(data: data!)
-             guard let areaLongName = jsonResult["results"][0]["address_components"][2]["long_name"].string
-                
+             guard let areaLongName = jsonResult["results"][0]["address_components"][2]["short_name"].string
+            
                 else{
                     dispatch_async(dispatch_get_main_queue(), {
                      self.cityLabel.text = "Error not found"
@@ -450,10 +453,14 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     return
                 }
              dispatch_async(dispatch_get_main_queue(), {
-                self.cityLabel.text = areaLongName
-                self.navigationItem.title = areaLongName
+                if let country = jsonResult["results"][0]["address_components"][4]["short_name"].string{
+                    self.cityLabel.text = areaLongName + ", \(country)"
+                }else {
+                    self.cityLabel.text = areaLongName
+                }
+              //  self.navigationItem.title = areaLongName
               //  print(areaLongName)
-             //   print(jsonResult)
+              //  print(jsonResult["results"][0]["address_components"])
               //  self.messageFrame.removeFromSuperview()
             })
         
@@ -468,8 +475,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     func getDaysOfWeek(dates: [NSDate])->[Int]? {
         var weekDays = [Int]()
         for date in dates{
-            let myCalendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-            let myComponents = myCalendar?.components(.NSWeekdayCalendarUnit, fromDate: date)
+            let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+            let myComponents = myCalendar?.components(.Weekday, fromDate: date)
             weekDays.append((myComponents?.weekday)!)
         }
         return weekDays
@@ -478,8 +485,8 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     func getDayOfWeek(date: NSDate)->String {
         
         var day = ""
-        let myCalendar = NSCalendar(calendarIdentifier: NSGregorianCalendar)
-        if let myComponents = myCalendar?.components(.NSWeekdayCalendarUnit, fromDate: date) {
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        if let myComponents = myCalendar?.components(.Weekday, fromDate: date) {
             let weekDay = (myComponents.weekday)
             
             if preLang.containsString("ar"){
@@ -602,6 +609,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         
         var url = NSURL()
         
+        
         if latitude != nil && longitude != nil{
             
                 if preLang.containsString("fr") {
@@ -648,33 +656,74 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 print("refreshing")
                 }
             })
+            
+            //Preparing Cache
+            let memoryCapacity = 500 * 1024 * 1024; // 500 MB
+            let diskCapacity = 500 * 1024 * 1024; // 500 MB
+            let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
+            let configration = NSURLSessionConfiguration.defaultSessionConfiguration()
+            configration.requestCachePolicy = .UseProtocolCachePolicy
+            configration.URLCache = cache
+            
+            let session = NSURLSession(configuration: configration)
+            
+            let urlRequest = NSMutableURLRequest(URL: url, cachePolicy: .ReloadRevalidatingCacheData, timeoutInterval: 10.0 * 1000)
+            urlRequest.HTTPMethod = "GET"
+            
+
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
-            let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
-                guard let realResponse = response as? NSHTTPURLResponse where
-                    realResponse.statusCode == 200 else {             //Has to have a min of 500 response
-                        
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
-                            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                                
-                                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
-                                //  self.alert.removeFromParentViewController()
-                                
-                            })
-                            self.alert.addAction(self.alertAction)
-                            self.presentViewController(self.alert, animated: true, completion: nil)
-                            if self.refreshing == true{
-                            self.messageFrame.removeFromSuperview()
-                                self.refreshing = false
-                            }
-                        })
-                        return
-                }
-                
-                
-                     let jsonContent = JSON(data: data!)
-                
+                let task = session.dataTaskWithRequest(urlRequest, completionHandler: { (data, response, error) -> Void in
                     
+//                    if let strongSelf = self {
+//                        var isModified = false
+//                      var dateFormatter:NSDateFormatter!
+//                        var err: NSError?
+//                        if let httpResp: NSHTTPURLResponse = response as? NSHTTPURLResponse {
+//                            let lastModifiedDate = httpResp.allHeaderFields["Expires"] as? String
+//                            if lastModifiedDate != nil {
+//                                let newLastModifiedDate = dateFormatter.dateFromString(lastModifiedDate!)
+//                                print(lastModifiedDate)
+//                                if newLastModifiedDate != nil {
+//                                    let currentLastModifiedDate = NSUserDefaults.standardUserDefaults().objectForKey("Expires") as? NSDate
+//                                    if currentLastModifiedDate == nil {
+//                                        isModified = true
+//                                    } else {
+//                                        isModified = !newLastModifiedDate!.isEqual(currentLastModifiedDate!)
+//                                    }
+//                                    
+//                                    NSUserDefaults.standardUserDefaults().setObject(newLastModifiedDate!, forKey: "LastModifiedDate")
+//                                    NSUserDefaults.standardUserDefaults().synchronize()
+//                                }
+//                            }
+//                            
+//                        }
+                    
+            
+//                guard let realResponse = response as? NSHTTPURLResponse where
+//                    realResponse.statusCode == 200 else {             //Has to have a min of 500 response
+//                        
+//                        dispatch_async(dispatch_get_main_queue(), {
+//                            self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
+//                            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+//                                
+//                                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+//                                //  self.alert.removeFromParentViewController()
+//                                
+//                            })
+//                            self.alert.addAction(self.alertAction)
+//                            self.presentViewController(self.alert, animated: true, completion: nil)
+//                            if self.refreshing == true{
+//                            self.messageFrame.removeFromSuperview()
+//                                self.refreshing = false
+//                            }
+//                        })
+//                        return
+//                }
+                
+                
+                    let jsonContent = JSON(data: data!)
+                
+               /*
                      guard  let cTemp = jsonContent["currently"]["temperature"].double,
                             let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double,
                             let cHumidity = jsonContent["currently"]["humidity"].double,
@@ -707,25 +756,26 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                                     })
                                 
                               return
-                            }
+                            }    */
                 
                
-                    print(cIconString)
                     //Forecast Grabber
                     if let data = jsonContent["daily"]["data"].array{
                         for data in data {
-                            
                             self.forcastTempMin.append(Int(round(data["temperatureMin"].double!)))
                             self.forcastTempMax.append(Int(round(data["temperatureMax"].double!)))
                            // self.forcastIconString.append(data["icon"].string!)
-                            let dIconString = data["icon"].string!
-                            let date = NSDate(timeIntervalSince1970: data["time"].double!)
-                            self.forcastWeekDay.append(self.getDayOfWeek(date))
-                            let dateS = String(date)
-                            let dateArrayWithTime = dateS.componentsSeparatedByString("-")
-                            let dateArrayDayOnly = dateArrayWithTime[2].componentsSeparatedByString(" ")
-                            self.forcastDay.append(dateArrayDayOnly[0])
-                            self.forcastIconImg.append(self.iconChecker(dIconString))
+                            if let dIconString = data["icon"].string{
+                            
+                                let date = NSDate(timeIntervalSince1970: data["time"].double!)
+                                self.forcastWeekDay.append(self.getDayOfWeek(date))
+                                let dateS = String(date)
+                                let dateArrayWithTime = dateS.componentsSeparatedByString("-")
+                                let dateArrayDayOnly = dateArrayWithTime[2].componentsSeparatedByString(" ")
+                                self.forcastDay.append(dateArrayDayOnly[0])
+                                self.forcastIconImg.append(self.iconChecker(dIconString))
+                                
+                            }
                            // print(dateArrayDayOnly[0])
                            
                            
@@ -738,45 +788,135 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                  //   self.messageFrame.removeFromSuperview()
                     
                     self.forcastView.reloadData()
+                    
                     if self.segmentedControl.selectedSegmentIndex == 0 {
-                        if self.fromSearchEngine == false{
-                            UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                        
+                        if let cTemp = jsonContent["currently"]["temperature"].double{
+                            self.tempLabel.text = String(Int(round(cTemp))) + "˚"
+                            
+                            if self.fromSearchEngine == false{
+                                UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                            }
+                            
+                        } else {
+                            self.tempLabel.text = "n/a˚"
                         }
-                        self.tempLabel.text = String(Int(round(cTemp))) + "˚"
-                        self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
-                        self.pressureLabel.text = String(Int(round(cPressure))) +  NSLocalizedString(" mBar", comment: "milli Bar")
-                        self.windSpeedLabel.text = String(Int(round(cWindSpeed))) + NSLocalizedString(" Km/h", comment: "Kilo fe El sa3a")
-                        self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
-                        self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
-                        self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
+                        if let cHumidity = jsonContent["currently"]["humidity"].double{
+                            self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
+                        } else {
+                            self.humidityLabel.text = "n/a %"
+                        }
+                        if let cPressure = jsonContent["currently"]["pressure"].double{
+                            self.pressureLabel.text = String(Int(round(cPressure))) +  NSLocalizedString(" mBar", comment: "milli Bar")
+                        } else {
+                            self.pressureLabel.text = "n/a mBar"
+                        }
+                        if let cWindSpeed = jsonContent["currently"]["windSpeed"].double{
+                            self.windSpeedLabel.text = String(Int(round(cWindSpeed))) + NSLocalizedString(" Km/h", comment: "Kilo fe El sa3a")
+                        } else {
+                            self.windSpeedLabel.text = "n/a Km/h"
+                        }
+                        
+                        if let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double{
+                            self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
+                        } else {
+                            self.realFeelLabel.text = "n/a˚"
+                        }
+                        if let cWindDirection = jsonContent["currently"]["windBearing"].double{
+                            self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
+                        } else {
+                            self.windDirectionLabel.text = "n/a"
+                        }
+                        if let cRainChance = jsonContent["currently"]["precipProbability"].double{
+                            self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
+                        } else {
+                            self.rainChanceLabel.text = "n/a %"
+                        }
+                        
                         if let cVisibility = jsonContent["currently"]["visibility"].double{
                             self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" Km", comment: "Km")
                         } else {
-                            self.visibilityLabel.text = "n/a" + NSLocalizedString(" Km", comment: "Km")
+                            self.visibilityLabel.text = "n/a Km"
                         }
-                        self.descriptionLabel.text = cSummary
-                        self.descriptionMoreLabel.text = cDailySummary
-                        self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        if let cSummary = jsonContent["currently"]["summary"].string{
+                            self.descriptionLabel.text = cSummary
+                        } else {
+                            self.descriptionLabel.text = "n/a"
+                        }
+                        if let cDailySummary = jsonContent["daily"]["summary"].string{
+                            self.descriptionMoreLabel.text = cDailySummary
+                        } else {
+                            self.descriptionMoreLabel.text = ""
+                        }
+                        if let cIconString = jsonContent["currently"]["icon"].string{
+                            self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        } else {
+                            self.bgImage.image = UIImage(named: "WindBg2x.png")
+                        }
                         
                     } else {
-                        if self.fromSearchEngine == false{
-                            UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                        
+                        if let cTemp = jsonContent["currently"]["temperature"].double{
+                            self.tempLabel.text = String(Int(round(cTemp))) + "˚"
+                            
+                            if self.fromSearchEngine == false{
+                                UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                            }
+                            
+                        } else {
+                            self.tempLabel.text = "n/a˚"
                         }
-                        self.tempLabel.text = String(Int(round(cTemp))) + "˚"
-                        self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
-                        self.pressureLabel.text = String(Int(round(cPressure))) + NSLocalizedString(" mBar", comment: "milli Bar")
-                        self.windSpeedLabel.text = String(Int(round(cWindSpeed))) + NSLocalizedString(" mph", comment: "meel fee el sa3a")
-                        self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
-                        self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
-                        self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
+                        if let cHumidity = jsonContent["currently"]["humidity"].double{
+                            self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
+                        } else {
+                            self.humidityLabel.text = "n/a %"
+                        }
+                        if let cPressure = jsonContent["currently"]["pressure"].double{
+                            self.pressureLabel.text = String(Int(round(cPressure))) + NSLocalizedString(" mBar", comment: "milli Bar")
+                        } else {
+                            self.pressureLabel.text = "n/a mBar"
+                        }
+                        if let cWindSpeed = jsonContent["currently"]["windSpeed"].double{
+                            self.windSpeedLabel.text = String(Int(round(cWindSpeed))) + NSLocalizedString(" mph", comment: "meel fee el sa3a")
+                        } else {
+                            self.windSpeedLabel.text = "n/a mph"
+                        }
+                        if let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double{
+                            self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
+                        } else {
+                            self.realFeelLabel.text = "n/a˚"
+                        }
+                        if let cWindDirection = jsonContent["currently"]["windBearing"].double{
+                            self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
+                        } else {
+                            self.windDirectionLabel.text = "n/a"
+                        }
+
+                        if let cRainChance = jsonContent["currently"]["precipProbability"].double{
+                            self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
+                        } else {
+                            self.rainChanceLabel.text = "n/a %"
+                        }
                         if let cVisibility = jsonContent["currently"]["visibility"].double{
                             self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" mi", comment: "meel")
                         } else {
                             self.visibilityLabel.text = "n/a" + NSLocalizedString(" mi", comment: "meel")
                         }
-                        self.descriptionLabel.text = cSummary
-                        self.descriptionMoreLabel.text = cDailySummary
-                        self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        if let cSummary = jsonContent["currently"]["summary"].string{
+                            self.descriptionLabel.text = cSummary
+                        } else {
+                            self.descriptionLabel.text = "n/a"
+                        }
+                        if let cDailySummary = jsonContent["daily"]["summary"].string{
+                            self.descriptionMoreLabel.text = cDailySummary
+                        } else {
+                            self.descriptionMoreLabel.text = ""
+                        }
+                        if let cIconString = jsonContent["currently"]["icon"].string{
+                            self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                        } else {
+                            self.bgImage.image = UIImage(named: "WindBg2x.png")
+                        }
                         
                     }
 
@@ -789,9 +929,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     }
                     print("Stop refreshing")
                 })
+             
                // self.messageFrame.removeFromSuperview()
-            })
+         })
             task.resume()
+            
           //  self.messageFrame.removeFromSuperview()
       }
             
