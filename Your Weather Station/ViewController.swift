@@ -31,7 +31,6 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     @IBOutlet var cityLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var segmentedControl: UISegmentedControl!
-    @IBOutlet var weatherIcon: UIImageView!
     @IBOutlet var bgImage: UIImageView!
 
     @IBOutlet var extraItemsView: UIView!
@@ -251,9 +250,28 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             manager.startUpdatingLocation()
             break
         case .Restricted:
+            self.alert = UIAlertController(title: NSLocalizedString("Location Error", comment: "Error in location title"), message: NSLocalizedString("Location services is not enabled!", comment: "No location found") , preferredStyle: UIAlertControllerStyle.Alert)
+            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                
+                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                self.alert.removeFromParentViewController()
+                
+            })
+            self.alert.addAction(self.alertAction)
+            self.presentViewController(self.alert, animated: true, completion: nil)
+
             // restricted by e.g. parental controls. User can't enable Location Services
             break
         case .Denied:
+            self.alert = UIAlertController(title: NSLocalizedString("Location Error", comment: "Error in location title"), message: NSLocalizedString("Location services is not enabled!", comment: "No location found") , preferredStyle: UIAlertControllerStyle.Alert)
+            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                
+                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                self.alert.removeFromParentViewController()
+                
+            })
+            self.alert.addAction(self.alertAction)
+            self.presentViewController(self.alert, animated: true, completion: nil)
             // user denied your app access to Location Services, but can grant access from Settings.app
             break
     //    default:
@@ -358,7 +376,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
       
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
 
-            guard let realResponse = response as? NSHTTPURLResponse where
+         /*   guard let realResponse = response as? NSHTTPURLResponse where
                 realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                     
                     dispatch_async(dispatch_get_main_queue(), {
@@ -375,7 +393,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     })
                     
                     return
-            }
+            }  */
                 
                 let jsonResult = JSON(data: data!)
                 
@@ -422,7 +440,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
       //  self.progressBarDisplayer("Refreshing", true)     // Progress bar show
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
             
-            guard let realResponse = response as? NSHTTPURLResponse where
+         /*   guard let realResponse = response as? NSHTTPURLResponse where
                 realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                     
                     dispatch_async(dispatch_get_main_queue(), {
@@ -439,7 +457,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     })
                     return
                     
-            }
+            }*/
             
                 
                 let jsonResult = JSON(data: data!)
