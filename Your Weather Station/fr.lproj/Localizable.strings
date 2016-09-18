@@ -2,7 +2,7 @@
 "Connection Error" = "Erreur de connexion";
 
 /* No connection found to server */
-"Connection is down. Please try again later" = "";
+"Connection is down. Please try again later" = "La connexion internet semble etre deconnecte";
 
 /* Error title */
 "Error" = "Erreur";
@@ -11,7 +11,7 @@
 "GPS Error" = "GPS Erreur";
 
 /* GPS location error */
-"GPS cannot locate your city. Please try again later" = "Connexion GPS introuvable. Veuillez réessayer plus tard";
+"The internet connection appears to be offline." = "La connexion Internet semble interrompue";
 
 /* Error in location title */
 "Location Error" = "Erreur de Localisation";
@@ -42,4 +42,10 @@
 
 /* if weather not found */
 "Weather data not found for this location!" = "Météo introuvables pour cet endroit!";
+
+/* Today date */
+"Today" = "Auj";
+
+/*Refreshng*/
+"Refreshing..." = "Rafraîchissement...";
 

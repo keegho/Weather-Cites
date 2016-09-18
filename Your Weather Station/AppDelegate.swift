@@ -21,6 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         
+//        let diskPathName = "cache-storage"
+//        
+//        let memorySize = 512 * 1024 * 1024
+//        let diskSize = 1024 * 1024 * 1024
+//        let cache = NSURLCache(memoryCapacity: memorySize, diskCapacity: diskSize, diskPath: diskPathName)
+//        NSURLCache.setSharedURLCache(cache)
+        
         // Override point for customization after application launch.
         return true
     }

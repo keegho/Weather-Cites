@@ -17,7 +17,7 @@
 "GPS Error" = "Errore GPS";
 
 /* GPS location error */
-"GPS cannot locate your city. Please try again later" = "Connessione GPS è giù. Per favore riprova più tardi";
+"The internet connection appears to be offline." = "La connessione a Internet sembra essere disattivata";
 
 /* Error in location title */
 "Location Error" = "Errore posizione";
@@ -48,4 +48,10 @@
 
 /* if weather not found */
 "Weather data not found for this location!" = "Meteo non trovate in questa posizione!";
+
+/* Today date */
+"Today" = "Oggi";
+
+/* Refreshing */
+"Refreshing..." = "Aggiornamento...";
 

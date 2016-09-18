@@ -11,6 +11,8 @@ import CoreLocation
 import Foundation
 import SwiftyJSON
 import GoogleMobileAds
+import Alamofire
+
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource,
 UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, UITextFieldDelegate {
@@ -63,7 +65,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var forcastIconImg = [UIImage]()
     
     var googleKey = "AIzaSyAffaG0NDNz_vbuUnMGN9fuEP1tf3BaKkY"
-    var forcastioKey = "1add606a5c48b959004d938dd5b7dcb3"
+    var forcastioKey = "8c60945f05f0ba1f8e522b3584718a69"
     var forcastBaseUrl = NSURL(string: "https://api.forecast.io/forecast/")!
     //Get users preferred "chosen" language
     var preLang = NSLocale.preferredLanguages()[0]
@@ -71,6 +73,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var refreshing = false
     var myLocation = true
     var fromSearchEngine = false
+    var justUpdatedLocation = false
     
     var searchLat = Double()
     var searchLong = Double()
@@ -81,9 +84,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         super.viewDidLoad()
         
 
+        
+        
         print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
         
-        googleBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        googleBannerView.adUnitID = "ca-app-pub-7533771262868755/2187181821"//"ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7533771262868755/2187181821"  //
         googleBannerView.rootViewController = self
         googleBannerView.loadRequest(GADRequest())
         
@@ -96,27 +101,6 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         forcastWeekDay.removeAll(keepCapacity: true)
         forcastIconImg.removeAll(keepCapacity: true)
        // forcastDate.removeAll(keepCapacity: true)
-
-//        tempLabel.layer.masksToBounds = true
-//        tempLabel.layer.cornerRadius = 12
-//        pressureLabel.layer.cornerRadius = 12
-//        pressureLabel.layer.masksToBounds = true
-//        humidityLabel.layer.cornerRadius = 12
-//        humidityLabel.layer.masksToBounds = true
-//        windDirectionLabel.layer.masksToBounds = true
-//        windDirectionLabel.layer.cornerRadius = 12
-//        windSpeedLabel.layer.cornerRadius = 12
-//        windSpeedLabel.layer.masksToBounds = true
-//        descriptionLabel.layer.masksToBounds = true
-//        descriptionLabel.layer.cornerRadius = 12
-//        cityLabel.layer.masksToBounds = true
-//        cityLabel.layer.cornerRadius = 12
-//        realFeelLabel.layer.cornerRadius = 7
-//        realFeelLabel.layer.masksToBounds = true
-//        visibilityLabel.layer.cornerRadius = 12
-//        visibilityLabel.layer.masksToBounds = true
-//        rainChanceLabel.layer.cornerRadius = 12
-//        rainChanceLabel.layer.masksToBounds = true
         
         
         //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "5C.png")!)
@@ -138,7 +122,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             //print(timeElapsed)
             
             //To check if the time passed since going to background is more than 10 min
-            if timeElapsed > 10{
+            if timeElapsed > 1{
                 
                 self.forcastTemp.removeAll(keepCapacity: true)
                 self.forcastTempMin.removeAll(keepCapacity: true)
@@ -150,9 +134,11 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 self.forcastIconImg.removeAll(keepCapacity: true)
              //   self.forcastDate.removeAll(keepCapacity: true)
                 
-                
+                self.fromSearchEngine = false
+                self.justUpdatedLocation = true
                 self.manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
                 self.manager.startUpdatingLocation()    // Update the weather stats
+
             }
             
         }
@@ -244,10 +230,14 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             break
         case .AuthorizedWhenInUse:
             self.messageFrame.removeFromSuperview()
-            manager.startUpdatingLocation()
+            if justUpdatedLocation == false{
+                manager.startUpdatingLocation()
+            }
             break
         case .AuthorizedAlways:
-            manager.startUpdatingLocation()
+            if justUpdatedLocation == false{
+                manager.startUpdatingLocation()
+            }
             break
         case .Restricted:
             self.alert = UIAlertController(title: NSLocalizedString("Location Error", comment: "Error in location title"), message: NSLocalizedString("Location services is not enabled!", comment: "No location found") , preferredStyle: UIAlertControllerStyle.Alert)
@@ -285,15 +275,15 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     func progressBarDisplayer(msg:String, _ indicator:Bool ) {
         
        // println(msg)
-        strLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 100, height: 25))
+        strLabel = UILabel(frame: CGRect(x: 80, y: 0, width: 150, height: 25))
         strLabel.text = msg
         strLabel.textColor = UIColor.whiteColor()
-        messageFrame = UIView(frame: CGRect(x: view.frame.midX - 90, y: view.frame.midY - 25 , width: 180, height: 25))
+        messageFrame = UIView(frame: CGRect(x: view.frame.midX - 130, y: view.frame.midY - 25 , width:250, height: 25))
         messageFrame.layer.cornerRadius = 4
         messageFrame.backgroundColor = UIColor(white: 0, alpha: 0.5)
         if indicator {
             activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
-            activityIndicator.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+            activityIndicator.frame = CGRect(x: 30, y: 0, width: 25, height: 25)
             activityIndicator.startAnimating()
             messageFrame.addSubview(activityIndicator)
         }
@@ -319,8 +309,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         self.messageFrame.removeFromSuperview()
         self.myLocation = true
         self.fromSearchEngine = false
-        self.getLocationAddress(latitude, long: longitude, key: googleKey)
-        self.getWeather(latitude, long: longitude, key: forcastioKey)
+        manager.startUpdatingLocation()
+       // self.getLocationAddress(latitude, long: longitude, key: googleKey)
+      //  self.getWeather(latitude, long: longitude, key: forcastioKey)
         
         
     }
@@ -351,7 +342,6 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         }
     }
     
-    //https://maps.googleapis.com/maps/api/geocode/json?address=alexandria,egypt&key=AIzaSyAffaG0NDNz_vbuUnMGN9fuEP1tf3BaKkY //return lat & long
     
     func searchStringChecker(searchString: String) -> String{
         
@@ -373,10 +363,86 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=\(locationSearch)&key=\(key)")
      dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
-      
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+        
+        //Preparing Cache
+        let memoryCapacity = 500 * 1024 * 1024; // 500 MB
+        let diskCapacity = 500 * 1024 * 1024; // 500 MB
+        let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
+        let configration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+        configration.HTTPAdditionalHeaders = defaultHeaders
+        configration.requestCachePolicy = .UseProtocolCachePolicy
+        configration.URLCache = cache
+        
+        let manager = Alamofire.Manager(configuration: configration)
+        if let url = url {
+        manager.request(.GET, url, parameters: nil, encoding: .URL)
+            .response { (request, response, data, error) in
+             //   print("REQUEST: \(request)")
+             //   print("RESPONSE: \(response)")
+                print("ERROR: \(error)")
+                
+                // Now parse the data using SwiftyJSON
+                // This will come from your custom cache if it is not expired,
+                // and from the network if it is expired
+                Alamofire.request(.GET, url).validate().responseJSON { response in
+                    switch response.result {
+                    case .Success:
+                        if let jsonData = response.result.value {
+                            let jsonResult = JSON(jsonData)
+                            
+                            guard let latOptional = jsonResult["results"][0]["geometry"]["location"]["lat"].double,
+                            
+                            let longOptional = jsonResult["results"][0]["geometry"]["location"]["lng"].double
+                                
+                                else{
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.alert = UIAlertController(title: NSLocalizedString("Location Error", comment: "Error in location title"), message: NSLocalizedString("Location not found!", comment: "No location found") , preferredStyle: UIAlertControllerStyle.Alert)
+                                        self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                            
+                                            //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                                            self.alert.removeFromParentViewController()
+                                            
+                                        })
+                                        self.alert.addAction(self.alertAction)
+                                        self.presentViewController(self.alert, animated: true, completion: nil)
+                                        //  self.messageFrame.removeFromSuperview()
+                                    })
+                                    
+                            
+                                    return
+                            }
+                        
+                        
+                            self.searchLat = latOptional
+                            self.searchLong = longOptional
+                            //  print(jsonResult)
+                            //  print(jsonResult["results"][0]["geometry"]["location"])
+                            // print(lat,long)
+                            self.myLocation = false
+                            return handler(lat: self.searchLat, long: self.searchLong)
+                        
+                        }
+                    
+                
+                         case .Failure(let error):
+                               print(error)
+                
+                
+                        }
 
-         /*   guard let realResponse = response as? NSHTTPURLResponse where
+                }
+                
+        }
+        
+        
+        
+
+      
+   /*     let task = NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+
+            guard let realResponse = response as? NSHTTPURLResponse where
                 realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                     
                     dispatch_async(dispatch_get_main_queue(), {
@@ -393,7 +459,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     })
                     
                     return
-            }  */
+            }  
                 
                 let jsonResult = JSON(data: data!)
                 
@@ -429,7 +495,26 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
           
             
         })
-        task.resume()
+        task.resume() */
+        } else {
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.alert = UIAlertController(title: NSLocalizedString("Location Error", comment: "Error in location title"), message: NSLocalizedString("Location not found!", comment: "No location found") , preferredStyle: UIAlertControllerStyle.Alert)
+                self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                    
+                    //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                    self.alert.removeFromParentViewController()
+                    
+                })
+                self.alert.addAction(self.alertAction)
+                self.presentViewController(self.alert, animated: true, completion: nil)
+                //  self.messageFrame.removeFromSuperview()
+            })
+            
+            
+            return
+
+        }
       }
     
     }
@@ -438,9 +523,67 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
         let url = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(lat),\(long)&key=\(key)")
       //  self.progressBarDisplayer("Refreshing", true)     // Progress bar show
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
+        
+        
+        //Preparing Cache
+        let memoryCapacity = 500 * 1024 * 1024; // 500 MB
+        let diskCapacity = 500 * 1024 * 1024; // 500 MB
+        let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
+        let configration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+        configration.HTTPAdditionalHeaders = defaultHeaders
+        configration.requestCachePolicy = .UseProtocolCachePolicy
+        configration.URLCache = cache
+        
+        let manager = Alamofire.Manager(configuration: configration)
+        
+        manager.request(.GET, url!, parameters: nil, encoding: .URL)
+            .response { (request, response, data, error) in
+            //    print("REQUEST: \(request)")
+            //    print("RESPONSE: \(response)")
+                 print("ERROR: \(error)")
+                
+                // Now parse the data using SwiftyJSON
+                // This will come from your custom cache if it is not expired,
+                // and from the network if it is expired 
+                Alamofire.request(.GET, url!).validate().responseJSON { response in
+                    switch response.result {
+                    case .Success:
+                        if let jsonData = response.result.value {
+                            let jsonResult = JSON(jsonData)
+                            guard let areaLongName = jsonResult["results"][0]["address_components"][2]["short_name"].string
+                                
+                                else{
+                                    dispatch_async(dispatch_get_main_queue(), {
+                                        self.cityLabel.text = "Error not found"
+                                        // self.messageFrame.removeFromSuperview()
+                                    })
+                                    return
+                            }
+                            dispatch_async(dispatch_get_main_queue(), {
+                                if let country = jsonResult["results"][0]["address_components"][4]["short_name"].string{
+                                    self.cityLabel.text = areaLongName + ", \(country)"
+                                }else {
+                                    self.cityLabel.text = areaLongName
+                                }
+                                //  self.navigationItem.title = areaLongName
+                                //  print(areaLongName)
+                                //  print(jsonResult["results"][0]["address_components"])
+                                //  self.messageFrame.removeFromSuperview()
+                            })
+                            
+                        }
+                             case .Failure(let error):
+                               print(error)
+
+                        }
+                }
+
+
+            }
+           /*     let task = NSURLSession.sharedSession().dataTaskWithURL(url!) { (data, response, error) -> Void in
             
-         /*   guard let realResponse = response as? NSHTTPURLResponse where
+            guard let realResponse = response as? NSHTTPURLResponse where
                 realResponse.statusCode == 200 else {             //Has to have a min of 500 response
                     
                     dispatch_async(dispatch_get_main_queue(), {
@@ -457,7 +600,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                     })
                     return
                     
-            }*/
+            }
             
                 
                 let jsonResult = JSON(data: data!)
@@ -485,6 +628,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         }
         task.resume()
      //   self.messageFrame.removeFromSuperview()
+        } */
         }
     }
     
@@ -506,7 +650,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         if let myComponents = myCalendar?.components(.Weekday, fromDate: date) {
             let weekDay = (myComponents.weekday)
-            
+            print(weekDay)
             if preLang.containsString("ar"){
                 switch weekDay{
                     
@@ -669,7 +813,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
              // Progress bar show
             dispatch_async(dispatch_get_main_queue(), {
                 if self.refreshing == false{
-            self.progressBarDisplayer("Refreshing", true)
+            self.progressBarDisplayer(NSLocalizedString("Refreshing...", comment: "Refreshing or Updating"), true)
                     self.refreshing = true
                 print("refreshing")
                 }
@@ -680,9 +824,253 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
             let diskCapacity = 500 * 1024 * 1024; // 500 MB
             let cache = NSURLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "shared_cache")
             let configration = NSURLSessionConfiguration.defaultSessionConfiguration()
+            let defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders
+            configration.HTTPAdditionalHeaders = defaultHeaders
             configration.requestCachePolicy = .UseProtocolCachePolicy
             configration.URLCache = cache
+          
+            let manager = Alamofire.Manager(configuration: configration)
             
+            manager.request(.GET, url, parameters: nil, encoding: .URL)
+                .response { (request, response, data, error) in
+                 //   print("REQUEST: \(request)")
+                 //   print("RESPONSE: \(response)")
+                     print("ERROR: \(error)")
+                    
+                    // Now parse the data using SwiftyJSON
+                    // This will come from your custom cache if it is not expired,
+                    // and from the network if it is expired
+                    
+                    Alamofire.request(.GET, url).validate().responseJSON { response in
+                        print("Time: \(response.timeline) sec")
+                        switch response.result {
+                        case .Success:
+                            if let jsonData = response.result.value {
+                                let jsonContent = JSON(jsonData)
+                               // let jsonContent = JSON(data: data!)
+                    
+                                //Forecast Grabber
+                                
+                                self.forcastTemp.removeAll(keepCapacity: true)
+                                self.forcastTempMin.removeAll(keepCapacity: true)
+                                self.forcastTempMax.removeAll(keepCapacity: true)
+                                self.forcastTime.removeAll(keepCapacity: true)
+                                self.forcastDay.removeAll(keepCapacity: true)
+                                //   forcastIconString.removeAll(keepCapacity: true)
+                                self.forcastWeekDay.removeAll(keepCapacity: true)
+                                self.forcastIconImg.removeAll(keepCapacity: true)
+                                // forcastDate.removeAll(keepCapacity: true)
+                                
+                                if let data = jsonContent["daily"]["data"].array{
+                                    var secondsFromGMT: Int { return NSTimeZone.localTimeZone().secondsFromGMT } //Get local time to add to timestamp
+                                   // print(secondsFromGMT)
+                                    for data in data {
+                                        self.forcastTempMin.append(Int(round(data["temperatureMin"].double!)))
+                                        self.forcastTempMax.append(Int(round(data["temperatureMax"].double!)))
+                                        // self.forcastIconString.append(data["icon"].string!)
+                                        
+                                        if let dIconString = data["icon"].string{
+                                           print(data["time"])
+                                            let date = NSDate(timeIntervalSince1970: data["time"].double! + Double(secondsFromGMT))
+                                            self.forcastWeekDay.append(self.getDayOfWeek(date))
+                                            let dateS = String(date)
+                                            let dateArrayWithTime = dateS.componentsSeparatedByString("-")
+                                            let dateArrayDayOnly = dateArrayWithTime[2].componentsSeparatedByString(" ")
+                                            //let dataArrayDayPlusOne = String(Int(dateArrayDayOnly[0])! + 1)
+                                            let dataArrayDay = String(dateArrayDayOnly[0])
+                                           // let dataArrayDayPlusOne = (dateArrayDayOnly[0])
+                                            self.forcastDay.append(dataArrayDay)
+                                            self.forcastIconImg.append(self.iconChecker(dIconString))
+                                            print(data)
+                                        }
+                                        
+                                        
+                                    }
+                                    
+                                }
+                                
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    //   self.messageFrame.removeFromSuperview()
+                                    
+                                    self.forcastView.reloadData()
+                                    
+                                    if self.segmentedControl.selectedSegmentIndex == 0 {
+                                        
+                                        if let cTemp = jsonContent["currently"]["temperature"].double{
+                                            self.tempLabel.text = String(Int(round(cTemp))) + "˚"
+                                            
+                                            if self.fromSearchEngine == false{
+                                                if cTemp < 0 {
+                                                    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                                                    
+                                                } else {
+                                                UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                                                }
+                                            }
+                                            
+                                        } else {
+                                            self.tempLabel.text = "n/a˚"
+                                        }
+                                        if let cHumidity = jsonContent["currently"]["humidity"].double{
+                                            self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
+                                        } else {
+                                            self.humidityLabel.text = "n/a %"
+                                        }
+                                        if let cPressure = jsonContent["currently"]["pressure"].double{
+                                            self.pressureLabel.text = String(Int(round(cPressure))) +  NSLocalizedString(" mBar", comment: "milli Bar")
+                                        } else {
+                                            self.pressureLabel.text = "n/a mBar"
+                                        }
+                                        if let cWindSpeed = jsonContent["currently"]["windSpeed"].double{
+                                            self.windSpeedLabel.text = String(Int(round(cWindSpeed))) + NSLocalizedString(" Km/h", comment: "Kilo fe El sa3a")
+                                        } else {
+                                            self.windSpeedLabel.text = "n/a Km/h"
+                                        }
+                                        
+                                        if let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double{
+                                            self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
+                                        } else {
+                                            self.realFeelLabel.text = "n/a˚"
+                                        }
+                                        if let cWindDirection = jsonContent["currently"]["windBearing"].double{
+                                            self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
+                                        } else {
+                                            self.windDirectionLabel.text = "n/a"
+                                        }
+                                        if let cRainChance = jsonContent["currently"]["precipProbability"].double{
+                                            self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
+                                        } else {
+                                            self.rainChanceLabel.text = "n/a %"
+                                        }
+                                        
+                                        if let cVisibility = jsonContent["currently"]["visibility"].double{
+                                            self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" Km", comment: "Km")
+                                        } else {
+                                            self.visibilityLabel.text = "n/a Km"
+                                        }
+                                        if let cSummary = jsonContent["currently"]["summary"].string{
+                                            self.descriptionLabel.text = cSummary
+                                        } else {
+                                            self.descriptionLabel.text = "n/a"
+                                        }
+                                        if let cDailySummary = jsonContent["daily"]["summary"].string{
+                                            self.descriptionMoreLabel.text = cDailySummary
+                                        } else {
+                                            self.descriptionMoreLabel.text = ""
+                                        }
+                                        if let cIconString = jsonContent["currently"]["icon"].string{
+                                            self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                                        } else {
+                                            self.bgImage.image = UIImage(named: "WindBg2x.png")
+                                        }
+                                        
+                                    } else {
+                                        
+                                        if let cTemp = jsonContent["currently"]["temperature"].double{
+                                            self.tempLabel.text = String(Int(round(cTemp))) + "˚"
+                                            
+                                            if self.fromSearchEngine == false{
+                                                if cTemp < 0 {
+                                                    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                                                    
+                                                } else {
+                                                    UIApplication.sharedApplication().applicationIconBadgeNumber = Int(round(cTemp))
+                                                }
+                                            }
+                                            
+                                        } else {
+                                            self.tempLabel.text = "n/a˚"
+                                        }
+                                        if let cHumidity = jsonContent["currently"]["humidity"].double{
+                                            self.humidityLabel.text = String(Int(round(cHumidity*100))) + "%"
+                                        } else {
+                                            self.humidityLabel.text = "n/a %"
+                                        }
+                                        if let cPressure = jsonContent["currently"]["pressure"].double{
+                                            self.pressureLabel.text = String(Int(round(cPressure))) + NSLocalizedString(" mBar", comment: "milli Bar")
+                                        } else {
+                                            self.pressureLabel.text = "n/a mBar"
+                                        }
+                                        if let cWindSpeed = jsonContent["currently"]["windSpeed"].double{
+                                            self.windSpeedLabel.text = String(Int(round(cWindSpeed))) + NSLocalizedString(" mph", comment: "meel fee el sa3a")
+                                        } else {
+                                            self.windSpeedLabel.text = "n/a mph"
+                                        }
+                                        if let cFeelsLike = jsonContent["currently"]["apparentTemperature"].double{
+                                            self.realFeelLabel.text = String(Int(round(cFeelsLike))) + "˚"
+                                        } else {
+                                            self.realFeelLabel.text = "n/a˚"
+                                        }
+                                        if let cWindDirection = jsonContent["currently"]["windBearing"].double{
+                                            self.windDirectionLabel.text = self.windDirectionNotation(cWindDirection)
+                                        } else {
+                                            self.windDirectionLabel.text = "n/a"
+                                        }
+                                        
+                                        if let cRainChance = jsonContent["currently"]["precipProbability"].double{
+                                            self.rainChanceLabel.text = String(Int(round(cRainChance * 100))) + "%"
+                                        } else {
+                                            self.rainChanceLabel.text = "n/a %"
+                                        }
+                                        if let cVisibility = jsonContent["currently"]["visibility"].double{
+                                            self.visibilityLabel.text = String(Int(round(cVisibility))) + NSLocalizedString(" mi", comment: "meel")
+                                        } else {
+                                            self.visibilityLabel.text = "n/a" + NSLocalizedString(" mi", comment: "meel")
+                                        }
+                                        if let cSummary = jsonContent["currently"]["summary"].string{
+                                            self.descriptionLabel.text = cSummary
+                                        } else {
+                                            self.descriptionLabel.text = "n/a"
+                                        }
+                                        if let cDailySummary = jsonContent["daily"]["summary"].string{
+                                            self.descriptionMoreLabel.text = cDailySummary
+                                        } else {
+                                            self.descriptionMoreLabel.text = ""
+                                        }
+                                        if let cIconString = jsonContent["currently"]["icon"].string{
+                                            self.bgImage.image = self.bgPicker(cIconString) //Change BG according to currently weather conditions.
+                                        } else {
+                                            self.bgImage.image = UIImage(named: "WindBg2x.png")
+                                        }
+                                        
+                                    }
+                                    
+                                    //   print(self.forcastTempMax, self.forcastTempMin)
+                                    //   print(jsonContent)
+                                    
+                                    if self.refreshing == true{
+                                        self.messageFrame.removeFromSuperview()
+                                        self.refreshing = false
+                                    }
+                                    print("Stop refreshing")
+                                })
+
+                              //  print("JSON: \(jsonContent)")
+                            }
+                        case .Failure(let error):
+                            print(error)
+                            self.alert = UIAlertController(title:NSLocalizedString("Connection Error", comment: "No connection title"), message: NSLocalizedString("The internet connection appears to be offline.", comment: "No Connection") , preferredStyle: UIAlertControllerStyle.Alert)
+                            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                
+                                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                                //  self.alert.removeFromParentViewController()
+                                
+                            })
+                            self.alert.addAction(self.alertAction)
+                            self.presentViewController(self.alert, animated: true, completion: nil)
+                            
+                            if self.refreshing == true{
+                                self.messageFrame.removeFromSuperview()
+                                self.refreshing = false
+                            }
+
+                        }
+                    }
+                    
+                    
+            }
+        }
+           /*
             let session = NSURLSession(configuration: configration)
             
             let urlRequest = NSMutableURLRequest(URL: url, cachePolicy: .ReloadRevalidatingCacheData, timeoutInterval: 10.0 * 1000)
@@ -692,51 +1080,30 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_UTILITY.rawValue), 0)){
                 let task = session.dataTaskWithRequest(urlRequest, completionHandler: { (data, response, error) -> Void in
                     
-//                    if let strongSelf = self {
-//                        var isModified = false
-//                      var dateFormatter:NSDateFormatter!
-//                        var err: NSError?
-//                        if let httpResp: NSHTTPURLResponse = response as? NSHTTPURLResponse {
-//                            let lastModifiedDate = httpResp.allHeaderFields["Expires"] as? String
-//                            if lastModifiedDate != nil {
-//                                let newLastModifiedDate = dateFormatter.dateFromString(lastModifiedDate!)
-//                                print(lastModifiedDate)
-//                                if newLastModifiedDate != nil {
-//                                    let currentLastModifiedDate = NSUserDefaults.standardUserDefaults().objectForKey("Expires") as? NSDate
-//                                    if currentLastModifiedDate == nil {
-//                                        isModified = true
-//                                    } else {
-//                                        isModified = !newLastModifiedDate!.isEqual(currentLastModifiedDate!)
-//                                    }
-//                                    
-//                                    NSUserDefaults.standardUserDefaults().setObject(newLastModifiedDate!, forKey: "LastModifiedDate")
-//                                    NSUserDefaults.standardUserDefaults().synchronize()
-//                                }
-//                            }
-//                            
-//                        }
+
                     
             
-//                guard let realResponse = response as? NSHTTPURLResponse where
-//                    realResponse.statusCode == 200 else {             //Has to have a min of 500 response
-//                        
-//                        dispatch_async(dispatch_get_main_queue(), {
-//                            self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
-//                            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-//                                
-//                                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
-//                                //  self.alert.removeFromParentViewController()
-//                                
-//                            })
-//                            self.alert.addAction(self.alertAction)
-//                            self.presentViewController(self.alert, animated: true, completion: nil)
-//                            if self.refreshing == true{
-//                            self.messageFrame.removeFromSuperview()
-//                                self.refreshing = false
-//                            }
-//                        })
-//                        return
-//                }
+                guard let realResponse = response as? NSHTTPURLResponse where
+                    
+                    realResponse.statusCode == 200 else {
+                        
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.alert = UIAlertController(title:  NSLocalizedString ("Connection Error", comment: "Error in connection title"), message: NSLocalizedString("Connection is down. Please try again later", comment: "No connection found to server") , preferredStyle: UIAlertControllerStyle.Alert)
+                            self.alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                
+                                //   self.alert.dismissViewControllerAnimated(true, completion: nil)
+                                //  self.alert.removeFromParentViewController()
+                                
+                            })
+                            self.alert.addAction(self.alertAction)
+                            self.presentViewController(self.alert, animated: true, completion: nil)
+                            if self.refreshing == true{
+                            self.messageFrame.removeFromSuperview()
+                                self.refreshing = false
+                            }
+                        })
+                        return
+                }
                 
                 
                     let jsonContent = JSON(data: data!)
@@ -794,12 +1161,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                                 self.forcastIconImg.append(self.iconChecker(dIconString))
                                 
                             }
-                           // print(dateArrayDayOnly[0])
-                           
                            
                         }
                         
-                      //  self.maxForcastTemp = self.forcastTempMax.maxElement()!
                     }
                     
                 dispatch_async(dispatch_get_main_queue(), {
@@ -970,7 +1334,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
                 self.messageFrame.removeFromSuperview()
                 self.refreshing = false
             }
-        }
+        }  */
 
         
     }
@@ -986,7 +1350,7 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
         } else if iconString == "rain"{
             bg = UIImage(named: "RainBg2x.png")!
         } else if iconString == "snow"{
-            bg = UIImage(named: "snowBg2x.png")!
+            bg = UIImage(named: "SnowBg2x.png")!
         } else if iconString == "sleet"{
             bg = UIImage(named: "sleetBg2x.png")!
         } else if iconString == "wind"{
@@ -1132,7 +1496,13 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
 
 
         cell.cellImage.image = forcastIconImg[indexPath.row]
-        cell.timeLabel.text = forcastWeekDay[indexPath.row]
+        
+        if indexPath.row == 0 {
+            cell.timeLabel.text = NSLocalizedString("Today", comment: "Today")
+        } else {
+            cell.timeLabel.text = String(forcastWeekDay[indexPath.row])
+        }
+        
         
 //        if (forcastTempMin[indexPath.row] == forcastTempMin.minElement()){
 //            cell.tempLabel.textColor = UIColor(red: 0, green: 0, blue: 255, alpha: 1.0)

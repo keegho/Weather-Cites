@@ -35,7 +35,7 @@
 "GPS Error" = "خطأ";
 
 /* GPS location error */
-"GPS cannot locate your city. Please try again later" = "لا يمكن تحديد موقعك. بسبب عدم وجود ارسال من القمر الصناعي.";
+"The internet connection appears to be offline." = "لاتصال معطلا . يرجى المحاولة مرة أخرى في وقت لاحق";
 
 /* Error in location title */
 "Location Error" = "خطأ";
@@ -84,4 +84,11 @@
 
 /* if weather not found */
 "Weather data not found for this location!" = "بيانات الطقس غير موجود في هذا الموقع!";
+
+/* Today date */
+"Today" = "اليوم";
+
+/*Refreshng*/
+"Refreshing..." = "جارى التحديث...";
+
 
