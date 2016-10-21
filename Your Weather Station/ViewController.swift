@@ -64,8 +64,9 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var forcastWeekDay = [String]()
     var forcastIconImg = [UIImage]()
     
-    var googleKey = "AIzaSyAffaG0NDNz_vbuUnMGN9fuEP1tf3BaKkY"
-    var forcastioKey = "8c60945f05f0ba1f8e522b3584718a69"
+    var googleKey:String!
+    var forcastioKey:String!
+    
     var forcastBaseUrl = URL(string: "https://api.forecast.io/forecast/")!
     //Get users preferred "chosen" language
     var preLang = Locale.preferredLanguages[0]
@@ -78,13 +79,22 @@ UICollectionViewDelegate, UISearchControllerDelegate, UISearchResultsUpdating, U
     var searchLat = Double()
     var searchLong = Double()
     
+    var keys:NSDictionary?
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Get keys from plist
+        if let path = Bundle.main.path(forResource: "Keys", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path)
+        }
         
-        
+        if let dict = keys {
+            googleKey = dict["Google Key"] as? String
+            forcastioKey = dict["Forcastio Key"] as? String
+        }
         
         print("Google Mobile Ads SDK version: " + GADRequest.sdkVersion())
         
