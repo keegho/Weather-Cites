@@ -1,15 +1,13 @@
-platform :ios, '8.0'
-use_frameworks!
-
-target ‘Your Weather Station’ do
-    pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
-
+# ncomment this line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
+  platform :ios,'10.0'
 
-pod 'Alamofire', '~> 3.0'
-
-pod 'Alamofire-SwiftyJSON', :podspec => 'https://raw.githubusercontent.com/pdutourgeerling/Alamofire-SwiftyJSON-Podspec/master/Alamofire3-SwiftyJSON.podspec'
+target 'Your Weather Station' do
+  # Comment this line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'Alamofire', '~> 4.0'
+  pod 'SwiftyJSON'
+  
+  # Pods for Your Weather Station
 
 end
