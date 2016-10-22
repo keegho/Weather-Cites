@@ -1,26 +1,13 @@
-# file
-
-#########################################################################
-#                                                                       #
-#       Title         - .gitignore file                                 #
-#       For           - MAC OSX , Xcode8 and Swift Source projects      #
-#       Updated by    - Kegham Karsian                                  #
-#       Updated on    - 21 - October - 2016                             #
-#                                                                       #
-#########################################################################
-
-########### Xcode ###########
-# Xcode temporary files that should never be committed
-
-#Keys
-Keys.plist
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
 build/
 DerivedData/
 
 #API Keys
-Keys.plist
+Your Weather Station/Keys.plist
 
 ## Various settings
 *.pbxuser
@@ -60,6 +47,7 @@ playground.xcworkspace
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
   Pods/
+  Your Weather Station/Images/
 
 # Carthage
 #
