@@ -100,8 +100,8 @@
 		196F47681DBAEECE00732A5E /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 196F47671DBAEECE00732A5E /* Keys.plist */; };
 		196F476A1DBAF44400732A5E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196F47691DBAF44400732A5E /* Alamofire.framework */; };
 		196F476C1DBAF44900732A5E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196F476B1DBAF44900732A5E /* SwiftyJSON.framework */; };
-		196F476E1DBAF70400732A5E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 196F476D1DBAF70400732A5E /* .gitignore */; };
 		19774FF01C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19774FEF1C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift */; };
+		197B8C1F1DBAFEE400C0BE7F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 197B8C1E1DBAFEE400C0BE7F /* .gitignore */; };
 		199CB5E51C7E9D0A006C0C0C /* wind1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E41C7E9D0A006C0C0C /* wind1.png */; };
 		199CB5E71C7EA1DD006C0C0C /* barometer1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E61C7EA1DD006C0C0C /* barometer1.png */; };
 		199CB5E91C7EA2D5006C0C0C /* humidity1.png in Resources */ = {isa = PBXBuildFile; fileRef = 199CB5E81C7EA2D5006C0C0C /* humidity1.png */; };
@@ -212,12 +212,12 @@
 		196F47671DBAEECE00732A5E /* Keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		196F47691DBAF44400732A5E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../Library/Developer/Xcode/DerivedData/Your_Weather_Station-hdnylmdddwrtjwdrqdrotkhtoonq/Build/Products/Debug-iphonesimulator/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		196F476B1DBAF44900732A5E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../Library/Developer/Xcode/DerivedData/Your_Weather_Station-hdnylmdddwrtjwdrqdrotkhtoonq/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
-		196F476D1DBAF70400732A5E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		19774FE11C7B6CC000E28EE6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		19774FE21C7B6CC000E28EE6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		19774FE31C7B6CCC00E28EE6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		19774FE41C7B6CCC00E28EE6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		19774FEF1C7BF57C00E28EE6 /* ForcastCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForcastCollectionViewCell.swift; sourceTree = "<group>"; };
+		197B8C1E1DBAFEE400C0BE7F /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		199CB5E41C7E9D0A006C0C0C /* wind1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wind1.png; sourceTree = "<group>"; };
 		199CB5E61C7EA1DD006C0C0C /* barometer1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barometer1.png; sourceTree = "<group>"; };
 		199CB5E81C7EA2D5006C0C0C /* humidity1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humidity1.png; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 		199ED8911C655CAA00BE8C2F = {
 			isa = PBXGroup;
 			children = (
-				196F476D1DBAF70400732A5E /* .gitignore */,
+				197B8C1E1DBAFEE400C0BE7F /* .gitignore */,
 				199ED89C1C655CAA00BE8C2F /* Your Weather Station */,
 				199ED89B1C655CAA00BE8C2F /* Products */,
 				73D8DFE5076C608E833183EC /* Pods */,
@@ -570,7 +570,7 @@
 				193DBEB71C8352550012729A /* Clear Sun Day.png in Resources */,
 				199CB5EB1C7EA545006C0C0C /* windDirection1.png in Resources */,
 				193DBF7D1C8725680012729A /* Partly-Cloudy-Day3x.png in Resources */,
-				196F476E1DBAF70400732A5E /* .gitignore in Resources */,
+				197B8C1F1DBAFEE400C0BE7F /* .gitignore in Resources */,
 				199CB5EF1C7EAC4C006C0C0C /* Visibility1.png in Resources */,
 				199CB5ED1C7EAA25006C0C0C /* chanceRain1.png in Resources */,
 				193DBEEC1C8365CA0012729A /* Humidity2x.png in Resources */,
