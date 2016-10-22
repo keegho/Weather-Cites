@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>Google Key</key>
-	<string>8c60945f05f0ba1f8e522b3584718a69</string>
-	<key>Forcastio Key</key>
 	<string>AIzaSyAffaG0NDNz_vbuUnMGN9fuEP1tf3BaKkY</string>
+	<key>Forcastio Key</key>
+	<string>8c60945f05f0ba1f8e522b3584718a69</string>
 </dict>
 </plist>

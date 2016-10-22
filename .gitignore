@@ -19,6 +19,9 @@ Keys.plist
 build/
 DerivedData/
 
+#API Keys
+Keys.plist
+
 ## Various settings
 *.pbxuser
 !default.pbxuser

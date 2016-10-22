@@ -9,15 +9,15 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-Your Weather Station.xcscheme</key>
+		<key>Pods-Your Weather Station 2.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
-		<key>SwiftyJSON.xcscheme</key>
+		<key>SwiftyJSON 2.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
-			<false/>
+			<true/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
